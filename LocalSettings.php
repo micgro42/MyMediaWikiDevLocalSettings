@@ -1,6 +1,65 @@
 <?php
 require_once __DIR__ . '/.docker/LocalSettings.php';
 
+/************
+ * Wikibase
+ ************/
+wfLoadExtension( 'WikibaseRepository', "$IP/extensions/Wikibase/extension-repo.json" );
+require_once "$IP/extensions/Wikibase/repo/ExampleSettings.php";
+wfLoadExtension( 'WikibaseClient', "$IP/extensions/Wikibase/extension-client.json" );
+require_once "$IP/extensions/Wikibase/client/ExampleSettings.php";
+
+// https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#common_siteLinkGroups
+$wgWBClientSettings['siteLinkGroups'] = [ 'wikipedia', 'local' ];
+$wgWBRepoSettings['siteLinkGroups'] = [ 'wikipedia', 'local' ];
+// https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#autotoc_md330
+$wgWBClientSettings['repoSiteId'] = 'default';
+
+// The following setting must either not be set, or be set for each client wiki differently
+// see also: https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#client_siteGlobalID
+// $wgWBClientSettings['siteGlobalID'] = 'client';
+
+// https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#autotoc_md332
+// ??
+
+// https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#common_entitySources
+// https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_entitysources.html
+$entitySources = [
+	'local' => [
+		'entityNamespaces' => [ 'item' => 120, 'property' => 122 ],
+		'repoDatabase' => 'default',
+		'baseUri' => 'SOME_CONCEPTBASEURI',
+		'interwikiPrefix' => 'SOME_INTERWIKI',
+		'rdfNodeNamespacePrefix' => 'SOME_NODERDFPREFIX',
+		'rdfPredicateNamespacePrefix' => 'SOME_PREDICATERDFPREFIX',
+	],
+];
+$wgWBRepoSettings['entitySources'] = $entitySources;
+$wgWBClientSettings['entitySources'] = $entitySources;
+
+// locally accessibly databases, used for dispatching
+// it seems rather optional unless one looks into dispatching specifically
+// https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#client_localClientDatabases
+$wgWBRepoSettings['localClientDatabases'] = [
+	'default' => 'default',
+	'client' => 'client'
+];
+
+
+
+/************
+ * Skins
+ ************/
+wfLoadSkin( 'Vector' );
+wfLoadSkin( 'MinervaNeue' );
+//$wgDefaultSkin = 'minerva';
+
+// Enable these when using mobile Frontend is important
+//wfLoadExtension( 'MobileFrontend' );
+//$wgMFAutodetectMobileView = true;
+
+
+
 //wfLoadExtension( 'AbuseFilter' );
 //wfLoadExtension( 'Babel' );
 //wfLoadExtension( 'BetaFeatures' );
@@ -20,13 +79,6 @@ wfLoadExtension( 'UniversalLanguageSelector' );
 //wfLoadExtension( 'WikimediaMessages' );
 //wfLoadExtension( 'JsonConfig' ); // dependency for Kartographer extension
 //wfLoadExtension( 'Kartographer' );
-
-//wfLoadExtension( 'MobileFrontend' );
-$wgMFAutodetectMobileView = true;
-wfLoadSkin( 'Vector' );
-wfLoadSkin( 'MinervaNeue' );
-//$wgDefaultSkin = 'minerva';
-//include_once "$IP/skins/MinervaNeue/tests/browser/LocalSettings.php";
 
 //$wgGroupPermissions['sysop']['interwiki'] = true;
 
@@ -81,28 +133,30 @@ $wgDebugLogGroups = [
 ];
 require_once "$IP/includes/DevelopmentSettings.php";
 
+/*
+if ( $wgDBname === 'default' ) {
+// repo config
+} elseif ( $wgDBname === 'client' ) {
+// client config
+}
+*/
+
 $wgRateLimits['edit']['ip'] = [ 2, 60 ];
 $wgRateLimits['edit']['user'] = [ 2, 60 ];
 $wgRateLimits['edit']['&can-bypass'] = false;
 
 //$wgEnableParserCache = false;
 //$wgCachePages = false;
-//$wgKartographerEnableMapFrame = true;
 
-wfLoadExtension( 'WikibaseRepository', "$IP/extensions/Wikibase/extension-repo.json" );
-require_once "$IP/extensions/Wikibase/repo/ExampleSettings.php";
-wfLoadExtension( 'WikibaseClient', "$IP/extensions/Wikibase/extension-client.json" );
-require_once "$IP/extensions/Wikibase/client/ExampleSettings.php";
+//$wgLocalDatabases = [ 'default', 'client' ];
 
-$wgWBClientSettings['repoSiteId'] = 'default';
-$wgWBClientSettings['siteGlobalID'] = 'client';
-$wgWBClientSettings['siteLinkGroups'] = [ 'local' ];
-$wgWBRepoSettings['siteLinkGroups'] = [ 'local' ];
 
 $wgWBRepoSettings['dataRightsText'] = 'Creative Commons CC0 License';
 $wgWBRepoSettings['dataRightsUrl'] = 'https://creativecommons.org/publicdomain/zero/1.0/';
+
 //$wgWBClientSettings['useKartographerMaplinkInWikitext'] = true; // T220122
 //$wgWBClientSettings['useKartographerGlobeCoordinateFormatter'] = true; // T220122
+//$wgKartographerEnableMapFrame = true;
 
 $wgWBClientSettings['dataBridgeEnabled'] = true;
 $wgWBRepoSettings['dataBridgeEnabled'] = true;
@@ -111,19 +165,6 @@ $wgWBClientSettings['dataBridgeEditTags'] = [ 'Data Bridge' ];
 $wgEditSubmitButtonLabelPublish = false;
 //$wgWBClientSettings['dataBridgeHrefRegExp'] = 'http://default\.web\.mw\.localhost:8080/mediawiki/index\.php\?title=(?:Item:)?(Q[1-9][0-9]*).*#(P[1-9][0-9]*)';
 //$wgWBClientSettings['dataBridgeHrefRegExp'] = 'https://wikidata\.beta\.wmflabs\.org/wiki/(?:Item:)?(Q[1-9][0-9]*).*#(P[1-9][0-9]*)';
-
-$entitySources = [
-    'local' => [
-        'entityNamespaces' => [ 'item' => 120, 'property' => 122 ],
-        'repoDatabase' => 'default',
-        'baseUri' => 'SOME_CONCEPTBASEURI',
-        'interwikiPrefix' => 'SOME_INTERWIKI',
-        'rdfNodeNamespacePrefix' => 'SOME_NODERDFPREFIX',
-        'rdfPredicateNamespacePrefix' => 'SOME_PREDICATERDFPREFIX',
-    ],
-];
-$wgWBRepoSettings['entitySources'] = $entitySources;
-$wgWBClientSettings['entitySources'] = $entitySources;
 
 
 //define('MW_NO_SESSION_HANDLER', true);
