@@ -1,18 +1,18 @@
-echo "Script to create two new wikis from scratch and create sitelinks between them.\n"
-echo "Symlink this script to your addshore/mediawiki-docker-dev directory and run it from there.\n"
+#!/usr/bin/env zsh
+set -xe
 
-./create
+# initial creation
+mw docker mediawiki create
+mw docker mysql create
+mw docker phpmyadmin create
 
-./addsite client
+# install repo
+mw docker mediawiki install --dbtype=mysql --dbname=default
+# tell the repo that it is also a client to itself
+mw docker mediawiki exec -- php maintenance/addSite.php default default --interwiki-id default --navigation-id default --pagepath 'http://default.mediawiki.mwdd.localhost:8080/w/index.php?title=$1' --filepath 'http://default.mediawiki.mwdd.localhost:8080/w/$1' --language en --server 'http://default.mediawiki.mwdd.localhost:8080'
 
-# tell the client wiki about the default wiki
-./script client maintenance/addSite.php --pagepath='http://default.web.mw.localhost:8080/mediawiki/index.php?title=$1'  --filepath='http://default.web.mw.localhost:8080/mediawiki/$1' --language en --interwiki-id default default local
+# install client
+mw docker mediawiki install --dbtype=mysql --dbname=client
+# tell the repo about the client wiki
+mw docker mediawiki exec -- php maintenance/addSite.php client default --interwiki-id client --navigation-id client --pagepath 'http://client.mediawiki.mwdd.localhost:8080/w/index.php?title=$1' --filepath 'http://client.mediawiki.mwdd.localhost:8080/w/$1' --language de --server 'http://client.mediawiki.mwdd.localhost:8080'
 
-# tell the client wiki that it is also a client to itself
-./script client maintenance/addSite.php --pagepath='http://client.web.mw.localhost:8080/mediawiki/index.php?title=$1'  --filepath='http://client.web.mw.localhost:8080/mediawiki/$1' --language en --interwiki-id client client local
-
-# tell the default wiki that it is also a client to itself
-./script default maintenance/addSite.php --pagepath='http://default.web.mw.localhost:8080/mediawiki/index.php?title=$1'  --filepath='http://default.web.mw.localhost:8080/mediawiki/$1' --language en --interwiki-id default default local
-
-# tell the default wiki about the client wiki
-./script default maintenance/addSite.php --pagepath='http://client.web.mw.localhost:8080/mediawiki/index.php?title=$1'  --filepath='http://client.web.mw.localhost:8080/mediawiki/$1' --language en --interwiki-id client client local
