@@ -20,5 +20,9 @@ mw docker mediawiki exec -- php maintenance/addSite.php client default --interwi
 # tell the client about the repo wiki
 mw docker mediawiki exec -- php maintenance/addSite.php --wiki client default default --interwiki-id default --navigation-id default --pagepath 'http://default.mediawiki.mwdd.localhost:8080/w/index.php?title=$1' --filepath 'http://default.mediawiki.mwdd.localhost:8080/w/$1' --language en --server 'http://default.mediawiki.mwdd.localhost:8080'
 
+# add interwiki prefixes so that the sitelinks in the sidebar work
+mw docker mediawiki exec -- php maintenance/sql.php --status --query "INSERT INTO interwiki (iw_prefix, iw_url, iw_local, iw_trans, iw_api, iw_wikiid) VALUES ('client', 'http://client.mediawiki.mwdd.localhost:8080/w/index.php?title=\$1', 0, 0, 'http://client.mediawiki.mwdd.localhost:8080/w/api.php', 'client');"
+mw docker mediawiki exec -- php maintenance/sql.php --wiki client --status --query "INSERT INTO interwiki (iw_prefix, iw_url, iw_local, iw_trans, iw_api, iw_wikiid) VALUES ('default', 'http://default.mediawiki.mwdd.localhost:8080/w/index.php?title=\$1', 0, 0, 'http://default.mediawiki.mwdd.localhost:8080/w/api.php', 'default');"
+
 # create "Data Bridge" tag
 mw docker mediawiki exec -- php maintenance/addChangeTag.php --tag 'Data Bridge' --reason 'added by createWikis.sh'
