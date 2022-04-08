@@ -168,27 +168,16 @@ $wgEditSubmitButtonLabelPublish = false;
 //$wgWBClientSettings['dataBridgeHrefRegExp'] = 'http://default\.web\.mw\.localhost:8080/mediawiki/index\.php\?title=(?:Item:)?(Q[1-9][0-9]*).*#(P[1-9][0-9]*)';
 //$wgWBClientSettings['dataBridgeHrefRegExp'] = 'https://wikidata\.beta\.wmflabs\.org/wiki/(?:Item:)?(Q[1-9][0-9]*).*#(P[1-9][0-9]*)';
 
+if ( $wgDBname === 'default' ) {
+	$wgLexemeLanguageCodePropertyId = 'P21';
+	wfLoadExtension( 'WikibaseLexeme' );
+	$wgEntitySchemaShExSimpleUrl = 'https://tools.wmflabs.org/shex-simple/wikidata/packages/shex-webapp/doc/shex-simple.html?data=Endpoint: https://query.wikidata.org/sparql&hideData&manifest=[]&textMapIsSparqlQuery';
+	$wgEntitySchemaSkippedIDs = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 42, 123, 999 ];
+	wfLoadExtension( 'EntitySchema' );
 
-//define('MW_NO_SESSION_HANDLER', true);
-$wgLexemeLanguageCodePropertyId = 'P21';
-wfLoadExtension( 'WikibaseLexeme' );
-
-$wgReservedUsernames = [ 'Maintenance script' ];
-$wgEntitySchemaShExSimpleUrl = 'https://tools.wmflabs.org/shex-simple/wikidata/packages/shex-webapp/doc/shex-simple.html?data=Endpoint: https://query.wikidata.org/sparql&hideData&manifest=[]&textMapIsSparqlQuery';
-$wgEntitySchemaSkippedIDs = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 42, 123, 999 ];
-wfLoadExtension( 'EntitySchema' );
-
-$wgWBQualityConstraintsSuggestionsBetaFeature = true;
-//wfLoadExtension( 'WikibaseQualityConstraints' );
-//wfLoadExtension( 'WikimediaBadges' );
-//wfLoadExtension( 'PropertySuggester' );
-
-$wgStatsdServer = 'http://graphite.mw.localhost:8080/';
-
-// trigger_error('wgDBname: ' . $wgDBname);
-// trigger_error('wgDBprefix: ' . $wgDBprefix);
-// trigger_error('wgDBuser: ' . $wgDBuser);
-// trigger_error('wgDBpassword: ' . $wgDBpassword);
+	$wgWBQualityConstraintsSuggestionsBetaFeature = true;
+	wfLoadExtension( 'WikibaseQualityConstraints' );
+}
 
 // https://www.mediawiki.org/wiki/Manual:Hooks/SkinBuildSidebar
 // https://www.mediawiki.org/wiki/Wikibase/Suite#Optional_sidebar
