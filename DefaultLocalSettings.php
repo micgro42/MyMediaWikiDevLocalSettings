@@ -127,7 +127,10 @@ $wgDebugLogGroups = [
 	'StashEdit' => '/var/log/mediawiki/stashEdit.log',
 
 	// Extra log groups from your extension
-	'Wikibase' => '/var/log/mediawiki/wikibase.log',
+	'Wikibase' => [
+		'destination' => '/var/log/mediawiki/wikibase.log',
+		'level' => \Psr\Log\LogLevel::DEBUG,
+	],
 	#'somegroup' => '/var/log/mediawiki/somegroup.log',
 ];
 require_once "$IP/includes/DevelopmentSettings.php";
