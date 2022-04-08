@@ -36,12 +36,17 @@ $wgWBClientSettings['repoSiteId'] = 'default';
 // https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_entitysources.html
 $entitySources = [
 	'local' => [
-		'entityNamespaces' => [ 'item' => 120, 'property' => 122 ],
+		'entityNamespaces' => [
+			'item' => 120,
+			'property' => 122,
+			'lexeme' => 146,
+//			'mediainfo' => '6/mediainfo',
+		],
 		'repoDatabase' => 'default',
-		'baseUri' => 'SOME_CONCEPTBASEURI',
-		'interwikiPrefix' => 'SOME_INTERWIKI',
-		'rdfNodeNamespacePrefix' => 'SOME_NODERDFPREFIX',
-		'rdfPredicateNamespacePrefix' => 'SOME_PREDICATERDFPREFIX',
+		'baseUri' => 'https://example.com/entity/',
+		'interwikiPrefix' => 'default',
+		'rdfNodeNamespacePrefix' => '',
+		'rdfPredicateNamespacePrefix' => '',
 	],
 ];
 $wgWBRepoSettings['entitySources'] = $entitySources;
