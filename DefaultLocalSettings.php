@@ -3,20 +3,31 @@
 /************
  * Wikibase
  ************/
-wfLoadExtension( 'WikibaseRepository', "$IP/extensions/Wikibase/extension-repo.json" );
-require_once "$IP/extensions/Wikibase/repo/ExampleSettings.php";
+
+global $wgDBname;
+
+if ( $wgDBname === 'default' ) {
+	// repo-only config
+	wfLoadExtension( 'WikibaseRepository', "$IP/extensions/Wikibase/extension-repo.json" );
+	require_once "$IP/extensions/Wikibase/repo/ExampleSettings.php";
+	$wgFavicon = 'favicon-repo.ico';
+} elseif ( $wgDBname === 'client' ) {
+	// client-only config
+	$wgLanguageCode = 'de';
+	$wgFavicon = 'favicon-client.ico';
+
+	// see also: https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#client_siteGlobalID
+	$wgWBClientSettings['siteGlobalID'] = 'client';
+}
+
+// both default and client are clients to the repo on default
 wfLoadExtension( 'WikibaseClient', "$IP/extensions/Wikibase/extension-client.json" );
-require_once "$IP/extensions/Wikibase/client/ExampleSettings.php";
 
 // https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#common_siteLinkGroups
-$wgWBClientSettings['siteLinkGroups'] = [ 'wikipedia', 'local' ];
-$wgWBRepoSettings['siteLinkGroups'] = [ 'wikipedia', 'local' ];
+$wgWBClientSettings['siteLinkGroups'] = [ 'wikipedia', 'default' ];
+$wgWBRepoSettings['siteLinkGroups'] = [ 'wikipedia', 'default' ];
 // https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#autotoc_md330
 $wgWBClientSettings['repoSiteId'] = 'default';
-
-// The following setting must either not be set, or be set for each client wiki differently
-// see also: https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#client_siteGlobalID
-// $wgWBClientSettings['siteGlobalID'] = 'client';
 
 // https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#autotoc_md332
 // ??
