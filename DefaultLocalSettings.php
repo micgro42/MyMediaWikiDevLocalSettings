@@ -20,6 +20,12 @@ if ( $wgDBname === 'default' ) {
 	$wgWBClientSettings['siteGlobalID'] = 'client';
 }
 
+$wgSkinMetaTags[] = 'og:description';
+$wgSkinMetaTags[] = 'description';
+$wgSkinMetaTags[] = 'title';
+$wgSkinMetaTags[] = 'og:title';
+$wgSkinMetaTags[] = 'twitter:card';
+
 // both default and client are clients to the repo on default
 wfLoadExtension( 'WikibaseClient', "$IP/extensions/Wikibase/extension-client.json" );
 
@@ -28,9 +34,6 @@ $wgWBClientSettings['siteLinkGroups'] = [ 'wikipedia', 'mylocalwikis' ];
 $wgWBRepoSettings['siteLinkGroups'] = [ 'wikipedia', 'mylocalwikis' ];
 // https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#autotoc_md330
 $wgWBClientSettings['repoSiteId'] = 'default';
-
-// https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#autotoc_md332
-// ??
 
 // https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#common_entitySources
 // https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_entitysources.html
@@ -63,8 +66,6 @@ $wgWBRepoSettings['localClientDatabases'] = [
 	'client' => 'client'
 ];
 
-
-
 /************
  * Skins
  ************/
@@ -73,36 +74,28 @@ wfLoadSkin( 'MinervaNeue' );
 //$wgDefaultSkin = 'minerva';
 
 // Enable these when using mobile Frontend is important
-//wfLoadExtension( 'MobileFrontend' );
-//$wgMFAutodetectMobileView = true;
+wfLoadExtension( 'MobileFrontend' );
+$wgMFAutodetectMobileView = true;
 
+// TODO: check for cirrus search and elastic?
+//wfLoadExtension( 'Elastica' );
+//wfLoadExtension( 'CirrusSearch' );
+//wfLoadExtension( 'WikibaseCirrusSearch' );
+//wfLoadExtension( 'WikibaseMediaInfo' );
 
-
-//wfLoadExtension( 'AbuseFilter' );
-//wfLoadExtension( 'Babel' );
-//wfLoadExtension( 'BetaFeatures' );
 //wfLoadExtension( 'cldr' );
-//wfLoadExtension( 'Echo' );
-//wfLoadExtension( 'EventLogging' );
-//wfLoadExtension( 'Gadgets' );
-wfLoadExtension( 'Interwiki' );
-//wfLoadExtension( 'InterwikiSorting' );
+
+// how to use: https://www.mediawiki.org/wiki/Help:Extension:ParserFunctions
 wfLoadExtension( 'ParserFunctions' );
-//wfLoadExtension( 'Scribunto' );
-//wfLoadExtension( 'Cite' );
+$wgPFEnableStringFunctions = true;
+
+wfLoadExtension( 'Scribunto' );
 $wgScribuntoDefaultEngine = 'luastandalone';
-//wfLoadExtension( 'SpamBlacklist' );
-//wfLoadExtension( 'TitleBlacklist' );
+//$wgScribuntoDefaultEngine = 'luasandbox';
+$wgNamespaceContentModels[828] = 'Scribunto';
+
 wfLoadExtension( 'UniversalLanguageSelector' );
 //wfLoadExtension( 'WikimediaMessages' );
-//wfLoadExtension( 'JsonConfig' ); // dependency for Kartographer extension
-//wfLoadExtension( 'Kartographer' );
-
-//$wgGroupPermissions['sysop']['interwiki'] = true;
-
-//wfLoadExtension( 'Gadgets' );
-$wgEventLoggingBaseUri = 'http://localhost:8080/event.gif';
-$wgEventLoggingFile = '/var/log/mediawiki/events.log';
 
 $wgAllowExternalImages = true;
 
@@ -162,15 +155,16 @@ if ( $wgDBname === 'default' ) {
 }
 */
 
-$wgRateLimits['edit']['ip'] = [ 2, 60 ];
-$wgRateLimits['edit']['user'] = [ 2, 60 ];
-$wgRateLimits['edit']['&can-bypass'] = false;
+//$wgRateLimits['edit']['ip'] = [ 2, 60 ];
+//$wgRateLimits['edit']['user'] = [ 2, 60 ];
+//$wgRateLimits['edit']['&can-bypass'] = false;
 
-//$wgEnableParserCache = false;
+$wgEnableParserCache = true;
 //$wgCachePages = false;
 
-//$wgLocalDatabases = [ 'default', 'client' ];
-
+// https://www.mediawiki.org/wiki/Manual:Memcached
+// https://www.mediawiki.org/wiki/Manual:$wgMemCachedServers
+$wgMainCacheType = CACHE_MEMCACHED;
 
 $wgWBRepoSettings['dataRightsText'] = 'Creative Commons CC0 License';
 $wgWBRepoSettings['dataRightsUrl'] = 'https://creativecommons.org/publicdomain/zero/1.0/';
