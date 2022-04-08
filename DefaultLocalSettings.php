@@ -52,6 +52,9 @@ $entitySources = [
 $wgWBRepoSettings['entitySources'] = $entitySources;
 $wgWBClientSettings['entitySources'] = $entitySources;
 
+// https://www.mediawiki.org/wiki/Manual:$wgLocalDatabases
+// FIXME: docs!
+$wgLocalDatabases = [ 'client', 'default' ];
 // locally accessibly databases, used for dispatching
 // it seems rather optional unless one looks into dispatching specifically
 // https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#client_localClientDatabases
