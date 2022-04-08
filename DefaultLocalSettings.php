@@ -190,23 +190,25 @@ if ( $wgDBname === 'default' ) {
 	wfLoadExtension( 'WikibaseQualityConstraints' );
 }
 
-// https://www.mediawiki.org/wiki/Manual:Hooks/SkinBuildSidebar
-// https://www.mediawiki.org/wiki/Wikibase/Suite#Optional_sidebar
-$wgHooks['SkinBuildSidebar'][] = function( $skin, &$sidebar ) {
-	$sidebar['Wikibase'][] = [
-		'text' => 'New Item',
-		'href' => '?title=Special:NewItem',
-	];
-	$sidebar['Wikibase'][] = [
-		'text' => 'New Property',
-		'href' => '?title=Special:NewProperty',
-	];
-	$sidebar['Wikibase'][] = [
-		'text' => 'New Lexeme',
-		'href' => '?title=Special:NewLexeme',
-	];
-	$sidebar['Wikibase'][] = [
-		'text' => 'New Schema',
-		'href' => '?title=Special:NewEntitySchema',
-	];
-};
+if ( $wgDBname === 'default' ) {
+	// https://www.mediawiki.org/wiki/Manual:Hooks/SkinBuildSidebar
+	// https://www.mediawiki.org/wiki/Wikibase/Suite#Optional_sidebar
+	$wgHooks['SkinBuildSidebar'][] = function( $skin, &$sidebar ) {
+		$sidebar['Wikibase'][] = [
+			'text' => 'New Item',
+			'href' => '?title=Special:NewItem',
+		];
+		$sidebar['Wikibase'][] = [
+			'text' => 'New Property',
+			'href' => '?title=Special:NewProperty',
+		];
+		$sidebar['Wikibase'][] = [
+			'text' => 'New Lexeme',
+			'href' => '?title=Special:NewLexeme',
+		];
+		$sidebar['Wikibase'][] = [
+			'text' => 'New Schema',
+			'href' => '?title=Special:NewEntitySchema',
+		];
+	};
+}
