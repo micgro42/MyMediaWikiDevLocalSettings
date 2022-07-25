@@ -71,10 +71,10 @@ createEntity () {
   local entityType=$1
   local data=$2
   local summary='Created by createWikis.sh'
-  curl --data-urlencode  "token=+\\" \
+  curl ${curlCookieOptions} --data-urlencode  "token=${token}+\\" \
   --data-urlencode "data=${data}" \
   --data-urlencode "summary=${summary}" \
-  "http://default.mediawiki.mwdd.localhost:8080/w/api.php?action=wbeditentity&new=${entityType}&format=json&formatversion=2"
+  "${apiBase}?action=wbeditentity&bot=1&new=${entityType}&format=json&formatversion=2"
 }
 
 # Q1 - Item for "Good Article" badge
