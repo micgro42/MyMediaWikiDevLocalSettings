@@ -26,3 +26,19 @@ mw docker mediawiki exec -- php maintenance/sql.php --wiki client --status --que
 
 # create "Data Bridge" tag
 mw docker mediawiki exec -- php maintenance/addChangeTag.php --tag 'Data Bridge' --reason 'added by createWikis.sh'
+
+####
+# Create starting entities
+###
+createEntity () {
+  local entityType=$1
+  local data=$2
+  local summary='Created by createWikis.sh'
+  curl --data-urlencode  "token=+\\" \
+  --data-urlencode "data=${data}" \
+  --data-urlencode "summary=${summary}" \
+  "http://default.mediawiki.mwdd.localhost:8080/w/api.php?action=wbeditentity&new=${entityType}&format=json&formatversion=2"
+}
+
+# Q1 - Item for "Good Article" badge
+createEntity 'item' '{"labels":{"en":{"language":"en","value":"Good Article"}}}'
