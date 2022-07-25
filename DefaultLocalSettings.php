@@ -24,8 +24,8 @@ if ( $wgDBname === 'default' ) {
 wfLoadExtension( 'WikibaseClient', "$IP/extensions/Wikibase/extension-client.json" );
 
 // https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#common_siteLinkGroups
-$wgWBClientSettings['siteLinkGroups'] = [ 'wikipedia', 'default' ];
-$wgWBRepoSettings['siteLinkGroups'] = [ 'wikipedia', 'default' ];
+$wgWBClientSettings['siteLinkGroups'] = [ 'wikipedia', 'mylocalwikis' ];
+$wgWBRepoSettings['siteLinkGroups'] = [ 'wikipedia', 'mylocalwikis' ];
 // https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#autotoc_md330
 $wgWBClientSettings['repoSiteId'] = 'default';
 
