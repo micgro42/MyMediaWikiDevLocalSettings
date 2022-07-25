@@ -80,5 +80,8 @@ createEntity () {
 # Q1 - Item for "Good Article" badge
 createEntity 'item' '{"labels":{"en":{"language":"en","value":"Good Article"}}}'
 
+# P1
+createEntity 'property' '{"labels":{"en":{"language":"en","value":"Sandbox String"}}, "datatype":"string"}'
+
 # localize sitelinks group
 createPage 'MediaWiki:Wikibase-sitelinks-mylocalwikis' 'Local Wikis'
