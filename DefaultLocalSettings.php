@@ -70,11 +70,8 @@ $wgWBRepoSettings['localClientDatabases'] = [
  ************/
 wfLoadSkin( 'Vector' );
 wfLoadSkin( 'MinervaNeue' );
-//$wgDefaultSkin = 'minerva';
-
-// Enable these when using mobile Frontend is important
-//wfLoadExtension( 'MobileFrontend' );
-//$wgMFAutodetectMobileView = true;
+wfLoadExtension( 'MobileFrontend' );
+$wgMFAutodetectMobileView = true;
 
 
 
