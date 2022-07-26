@@ -5,6 +5,7 @@ set -xe
 mw docker mediawiki create
 mw docker mysql create
 mw docker phpmyadmin create
+mw docker memcached create
 
 # install repo
 mw docker mediawiki install --dbtype=mysql --dbname=default

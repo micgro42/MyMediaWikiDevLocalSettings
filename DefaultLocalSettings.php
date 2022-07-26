@@ -61,6 +61,15 @@ $wgWBRepoSettings['localClientDatabases'] = [
 ];
 
 
+/************
+ * MediaWiki
+ ************/
+$wgEnableParserCache = true;
+// https://www.mediawiki.org/wiki/Manual:Memcached
+// https://www.mediawiki.org/wiki/Manual:$wgMemCachedServers
+// TODO: how to inspect that cache locally?
+$wgMainCacheType = CACHE_MEMCACHED;
+
 
 /************
  * Skins
