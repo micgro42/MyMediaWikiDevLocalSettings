@@ -79,6 +79,33 @@ wfLoadSkin( 'MinervaNeue' );
 wfLoadExtension( 'MobileFrontend' );
 $wgMFAutodetectMobileView = true;
 
+/************
+ * Extensions
+ ************/
+
+/**
+ * ArticlePlaceholder might need some more setup, that is, importing a template and a lua module.
+ * See the setup section on https://www.mediawiki.org/wiki/Extension:ArticlePlaceholder
+ *
+ * It also needs the Scribunto extension.
+ *
+ * It is enabled only on a few small wikis and likely to be sunset soon.
+ *
+ * Go to http://default.mediawiki.mwdd.localhost:8080/w/index.php?title=Special:AboutTopic/Q1
+ * to see what this extension does. (assuming Q1 exists and has some statements)
+ */
+wfLoadExtension( 'ArticlePlaceholder' );
+
+/**
+ * Scribunto is a Lua extension for MediaWiki. It is probably enabled on all wikis.
+ *
+ * Needed for the ArticlePlaceholder extension
+ * https://www.mediawiki.org/wiki/Extension:Scribunto
+ */
+wfLoadExtension( 'Scribunto' );
+$wgScribuntoDefaultEngine = 'luastandalone';
+
+
 
 
 //wfLoadExtension( 'AbuseFilter' );
@@ -91,9 +118,8 @@ $wgMFAutodetectMobileView = true;
 wfLoadExtension( 'Interwiki' );
 //wfLoadExtension( 'InterwikiSorting' );
 wfLoadExtension( 'ParserFunctions' );
-//wfLoadExtension( 'Scribunto' );
+
 //wfLoadExtension( 'Cite' );
-$wgScribuntoDefaultEngine = 'luastandalone';
 //wfLoadExtension( 'SpamBlacklist' );
 //wfLoadExtension( 'TitleBlacklist' );
 wfLoadExtension( 'UniversalLanguageSelector' );
