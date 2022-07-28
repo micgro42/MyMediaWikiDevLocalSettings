@@ -36,23 +36,23 @@ mw docker mediawiki exec -- php maintenance/createBotPassword.php --appid 'creat
 ###
 token=""
 apiBase='http://default.mediawiki.mwdd.localhost:8080/w/api.php'
-curlCookieOptions="-b '/tmp/cookie.txt' -c '/tmp/cookie.txt'"
+curlCookieOptions="-b /tmp/cookie.txt -c /tmp/cookie.txt"
 
 getCSRFToken () {
   local user='Admin@createWikis.sh'
   local pass='00000000000000000000000000000000'
 
-  local loginTokenResponse=`curl -j ${curlCookieOptions} "${apiBase}?action=query&meta=tokens&type=login&format=json&formatversion=2"`
+  local loginTokenResponse=`curl -j $(echo $curlCookieOptions) "${apiBase}?action=query&meta=tokens&type=login&format=json&formatversion=2"`
 
   local loginToken=`grep --only-matching -E '[a-f0-9]{40}' <<< $loginTokenResponse`
 
-  curl ${curlCookieOptions} \
+  curl $(echo $curlCookieOptions) \
     --data-urlencode "lgtoken=${loginToken}+\\" \
     --data-urlencode "lgname=${user}" \
     --data-urlencode "lgpassword=${pass}" \
     "${apiBase}?action=login&format=json&formatversion=2"
 
-  local tokenResponse=`curl -b '/tmp/cookie.txt' -c '/tmp/cookie.txt' "${apiBase}?action=query&meta=tokens&format=json&formatversion=2"`
+  local tokenResponse=`curl $(echo $curlCookieOptions) "${apiBase}?action=query&meta=tokens&format=json&formatversion=2"`
   token=`grep --only-matching -E '[a-f0-9]{40}' <<< $tokenResponse`
 }
 getCSRFToken
@@ -61,7 +61,7 @@ createPage () {
   local title=$1
   local text=$2
   local summary='Created by createWikis.sh'
-  curl ${curlCookieOptions} --data-urlencode  "token=${token}+\\" \
+  curl $(echo $curlCookieOptions) --data-urlencode  "token=${token}+\\" \
   --data-urlencode "title=${title}" \
   --data-urlencode "text=${text}" \
   --data-urlencode "summary=${summary}" \
@@ -72,7 +72,7 @@ createEntity () {
   local entityType=$1
   local data=$2
   local summary='Created by createWikis.sh'
-  curl ${curlCookieOptions} --data-urlencode  "token=${token}+\\" \
+  curl $(echo $curlCookieOptions) --data-urlencode  "token=${token}+\\" \
   --data-urlencode "data=${data}" \
   --data-urlencode "summary=${summary}" \
   "${apiBase}?action=wbeditentity&bot=1&new=${entityType}&format=json&formatversion=2"
