@@ -60,6 +60,26 @@ $wgWBRepoSettings['localClientDatabases'] = [
 	'client' => 'client'
 ];
 
+/**
+ * These settings are used to configure the badges that are available for sitelinks on items.
+ */
+$wgWBRepoSettings['badgeItems'] = [
+	'Q1' => 'wb-badge-goodarticle',
+	'Q2' => 'wb-badge-redirect-sitelink',
+	'Q3' => 'wb-badge-redirect-intentional-sitelink',
+];
+$wgWBClientSettings['badgeClassNames'] = [
+	'Q1' => 'badge-goodarticle',
+];
+/**
+ * These items are badges that can be added to sitelinks to redirects
+ *
+ * You can create a redirect by saving a Wikipage with the content `#REDIRECT [[Other page title]]`
+ */
+$wgWBRepoSettings['redirectBadgeItems'] = [
+	'Q2', 'Q3'
+];
+
 
 /************
  * MediaWiki
@@ -111,7 +131,14 @@ wfLoadExtension( 'ArticlePlaceholder' );
 wfLoadExtension( 'Scribunto' );
 $wgScribuntoDefaultEngine = 'luastandalone';
 
-
+/**
+ * WikimediaBadges mainly provides the CSS to show tiny icons for badges next to sitelinks on client wikis.
+ *
+ * It goes together with the $wgWBClientSettings['badgeClassNames'] config setting.
+ *
+ * https://www.mediawiki.org/wiki/Extension:WikimediaBadges
+ */
+wfLoadExtension( 'WikimediaBadges' );
 
 
 //wfLoadExtension( 'AbuseFilter' );
