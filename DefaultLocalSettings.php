@@ -70,6 +70,12 @@ $wgEnableParserCache = true;
 // TODO: how to inspect that cache locally?
 $wgMainCacheType = CACHE_MEMCACHED;
 
+/**
+ * Destination of statsd metrics.
+ *
+ * You can access this server at @link http://graphite.mwdd.localhost:8080/
+ */
+$wgStatsdServer = 'graphite';
 
 /************
  * Skins
