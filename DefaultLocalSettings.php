@@ -191,10 +191,6 @@ if ( $wgDBname === 'default' ) {
 }
 */
 
-$wgRateLimits['edit']['ip'] = [ 2, 60 ];
-$wgRateLimits['edit']['user'] = [ 2, 60 ];
-$wgRateLimits['edit']['&can-bypass'] = false;
-
 //$wgEnableParserCache = false;
 //$wgCachePages = false;
 
