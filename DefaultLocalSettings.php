@@ -121,7 +121,7 @@ $wgScribuntoDefaultEngine = 'luastandalone';
 //wfLoadExtension( 'Echo' );
 //wfLoadExtension( 'EventLogging' );
 //wfLoadExtension( 'Gadgets' );
-wfLoadExtension( 'Interwiki' );
+//wfLoadExtension( 'Interwiki' );
 //wfLoadExtension( 'InterwikiSorting' );
 wfLoadExtension( 'ParserFunctions' );
 
