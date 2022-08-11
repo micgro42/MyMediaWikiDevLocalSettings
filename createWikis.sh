@@ -89,6 +89,7 @@ createEntity 'item' '{"labels":{"en":{"language":"en","value":"intentional sitel
 
 # P1
 createEntity 'property' '{"labels":{"en":{"language":"en","value":"Sandbox String"}}, "datatype":"string"}'
+createEntity 'property' '{"labels":{"en":{"language":"en","value":"Sandbox Url"}}, "datatype":"url"}'
 
 # localize sitelinks group
 createPage 'MediaWiki:Wikibase-sitelinks-mylocalwikis' 'Local Wikis'
