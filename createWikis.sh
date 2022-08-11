@@ -79,7 +79,10 @@ createEntity () {
   "${apiBase}?action=wbeditentity&bot=1&new=${entityType}&format=json&formatversion=2"
 }
 
-# Q1 - Q3: Items for badges
+# Q1 generic sandbox item
+createEntity 'item' '{"labels":{"en":{"language":"en","value":"Sandbox Item"}}}'
+
+# Q2 - Q4: Items for badges
 createEntity 'item' '{"labels":{"en":{"language":"en","value":"Good Article"}}}'
 createEntity 'item' '{"labels":{"en":{"language":"en","value":"sitelink to redirect"}}}'
 createEntity 'item' '{"labels":{"en":{"language":"en","value":"intentional sitelink to redirect"}}}'

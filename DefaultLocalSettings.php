@@ -64,12 +64,12 @@ $wgWBRepoSettings['localClientDatabases'] = [
  * These settings are used to configure the badges that are available for sitelinks on items.
  */
 $wgWBRepoSettings['badgeItems'] = [
-	'Q1' => 'wb-badge-goodarticle',
-	'Q2' => 'wb-badge-redirect-sitelink',
-	'Q3' => 'wb-badge-redirect-intentional-sitelink',
+	'Q2' => 'wb-badge-goodarticle',
+	'Q3' => 'wb-badge-redirect-sitelink',
+	'Q4' => 'wb-badge-redirect-intentional-sitelink',
 ];
 $wgWBClientSettings['badgeClassNames'] = [
-	'Q1' => 'badge-goodarticle',
+	'Q2' => 'badge-goodarticle',
 ];
 /**
  * These items are badges that can be added to sitelinks to redirects
@@ -77,7 +77,7 @@ $wgWBClientSettings['badgeClassNames'] = [
  * You can create a redirect by saving a Wikipage with the content `#REDIRECT [[Other page title]]`
  */
 $wgWBRepoSettings['redirectBadgeItems'] = [
-	'Q2', 'Q3'
+	'Q3', 'Q4'
 ];
 
 
