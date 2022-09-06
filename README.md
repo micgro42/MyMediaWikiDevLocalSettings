@@ -12,7 +12,7 @@ The files/scripts here are intended to work together with the [mwcli](https://ww
     - this includes making sure you have a `LocalSettings.php` file in the root directory of your `mediawiki core` clone
 
 
-### Required extensions
+### Required extensions and skins
 
 * TODO
 
@@ -34,6 +34,19 @@ Then, in your `LocalSettings.php` (which must already be inside the mediawiki di
 ```php
 require_once __DIR__ . '/DefaultLocalSettings.php';
 ```
+
+For example, the top of my own `mediawiki/LocalSettings.php` looks like this:
+
+```php
+<?php
+
+require_once '/mwdd/MwddSettings.php';
+
+require_once __DIR__ . '/DefaultLocalSettings.php';
+
+// ... other settings
+```
+
 
 ## Usage
 
