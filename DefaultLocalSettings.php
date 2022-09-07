@@ -150,12 +150,12 @@ wfLoadExtension( 'WikimediaBadges' );
 //wfLoadExtension( 'Gadgets' );
 //wfLoadExtension( 'Interwiki' );
 //wfLoadExtension( 'InterwikiSorting' );
-wfLoadExtension( 'ParserFunctions' );
+//wfLoadExtension( 'ParserFunctions' );
 
 //wfLoadExtension( 'Cite' );
 //wfLoadExtension( 'SpamBlacklist' );
 //wfLoadExtension( 'TitleBlacklist' );
-wfLoadExtension( 'UniversalLanguageSelector' );
+//wfLoadExtension( 'UniversalLanguageSelector' );
 //wfLoadExtension( 'WikimediaMessages' );
 //wfLoadExtension( 'JsonConfig' ); // dependency for Kartographer extension
 //wfLoadExtension( 'Kartographer' );
