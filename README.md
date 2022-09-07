@@ -1,6 +1,8 @@
 # Wikidata Local Dev Setup
 
-TODO: quick summary of what this is
+This repository contains a default configuration and wiki creation script to get to a local development setup that somewhat mirrors
+Wikidata and a Wikipedia wiki.
+It is inherently perpetually in progress.
 
 ## Installation
 
