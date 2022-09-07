@@ -14,7 +14,22 @@ The files/scripts here are intended to work together with the [mwcli](https://ww
 
 ### Required extensions and skins
 
-* TODO
+These default settings assume some extensions to be present.
+The best way to get them is to filter for them in the [list of all repositories](https://gerrit.wikimedia.org/r/admin/repos),
+and then clone them (with the long command including the `commit-msg` hook) directly into `mediawiki/extensions/`.
+
+* Wikibase
+* WikibaseLexeme
+* WikibaseQualityConstraints
+* EntitySchema
+* Scribunto
+* ArticlePlaceholder
+* MobileFrontend
+* WikimediaBadges
+
+Further, two skins are needed:
+* Vector, which should have been installed as part of the mwcli first-time setup above
+* MinervaNeue, which can be cloned with the process described above, but this time into the directory `mediawiki/skins/`.
 
 ### Link the files
 
