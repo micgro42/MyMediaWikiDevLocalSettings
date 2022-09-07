@@ -1,16 +1,10 @@
 #!/usr/bin/env zsh
 set -xe
 
-# get directory for mediawiki
-
-echo "$1"
-
 if [ ! -d "$1" ]; then
   echo "Directory $1 does not exist."
   exit 1
 fi
-
-# verify that this directory contains LocalSettings.php
 
 if [ ! -f "$1/LocalSettings.php" ]; then
   echo "Directory $1 does not contain LocalSettings.php."
