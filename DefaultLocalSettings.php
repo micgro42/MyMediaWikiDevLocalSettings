@@ -80,6 +80,15 @@ $wgWBRepoSettings['redirectBadgeItems'] = [
 	'Q3', 'Q4'
 ];
 
+/**
+ * Enables the "new"/mobile Termbox
+ *
+ * Further configuration is required to make SSR work too
+ *
+ * See also https://github.com/wikimedia/wikibase-termbox#readme
+ */
+$wgWBRepoSettings['termboxEnabled'] = true;
+
 
 /************
  * MediaWiki
@@ -140,6 +149,14 @@ $wgScribuntoDefaultEngine = 'luastandalone';
  */
 wfLoadExtension( 'WikimediaBadges' );
 
+/**
+ * UniversalLanguageSelector is required for the "new"/mobile Termbox to work
+ *
+ * TODO: add what else UniversalLanguageSelector does for Wikidata and Wikipedias in general
+ *
+ * https://www.mediawiki.org/wiki/Extension:UniversalLanguageSelector
+ */
+wfLoadExtension( 'UniversalLanguageSelector' );
 
 //wfLoadExtension( 'AbuseFilter' );
 //wfLoadExtension( 'Babel' );
@@ -155,7 +172,6 @@ wfLoadExtension( 'WikimediaBadges' );
 //wfLoadExtension( 'Cite' );
 //wfLoadExtension( 'SpamBlacklist' );
 //wfLoadExtension( 'TitleBlacklist' );
-//wfLoadExtension( 'UniversalLanguageSelector' );
 //wfLoadExtension( 'WikimediaMessages' );
 //wfLoadExtension( 'JsonConfig' ); // dependency for Kartographer extension
 //wfLoadExtension( 'Kartographer' );
