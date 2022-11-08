@@ -89,6 +89,18 @@ $wgWBRepoSettings['redirectBadgeItems'] = [
  */
 $wgWBRepoSettings['termboxEnabled'] = true;
 
+/**
+ * Tainted references is a small Vue widget that highlights potentially outdated references
+ *
+ * To see it in action create a statement that also has a reference.
+ * Then, in the Item UI, edit the statement, but leave the reference untouched.
+ * After saving, you should see an exclamation mark in a circle that triggers a small popup.
+ *
+ * See also:
+ * https://www.wikidata.org/wiki/Wikidata:Mismatched_reference_notification_input
+ * https://phabricator.wikimedia.org/project/profile/4242/
+ */
+$wgWBRepoSettings['taintedReferencesEnabled'] = true;
 
 /************
  * MediaWiki
