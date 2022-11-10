@@ -87,7 +87,7 @@ createEntity 'property' '{"labels":{"en":{"language":"en","value":"Sandbox Item"
 createEntity 'property' '{"labels":{"en":{"language":"en","value":"Property Constraint"}}, "datatype":"wikibase-item"}'
 
 # Q1 generic sandbox item
-createEntity 'item' '{"labels":{"en":{"language":"en","value":"Sandbox Item"}}}'
+createEntity 'item' '{"labels":{"en":{"language":"en","value":"Sandbox Item"}}, "claims":[{"mainsnak":{"snaktype":"value","property":"P1","datavalue":{"value":"ExampleString","type":"string"}},"type":"statement","rank":"normal"}]}'
 
 # Q2 - Q4: Items for badges
 createEntity 'item' '{"labels":{"en":{"language":"en","value":"Good Article"}}}'
@@ -97,3 +97,7 @@ createEntity 'item' '{"labels":{"en":{"language":"en","value":"intentional sitel
 # localize sitelinks group
 createPage 'MediaWiki:Wikibase-sitelinks-mylocalwikis' 'Local Wikis'
 createPage 'MediaWiki:Wikibase-statementsection-constraints' 'Constraints'
+
+createPage 'Main_Page' '== Test Pages for specific functionalities ==
+* [[Bridge|Wikidata Bridge]]'
+createPage 'Bridge' '{{#statements:P1|from=Q1}}&nbsp;<span data-bridge-edit-flow="single-best-value">[http://default.mediawiki.mwdd.localhost:8080/w/index.php?title=Item:Q1#P1 Edit with Wikidata Bridge]</span>'
