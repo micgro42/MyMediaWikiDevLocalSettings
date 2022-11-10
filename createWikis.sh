@@ -79,6 +79,13 @@ createEntity () {
   "${apiBase}?action=wbeditentity&bot=1&new=${entityType}&format=json&formatversion=2"
 }
 
+# P1
+createEntity 'property' '{"labels":{"en":{"language":"en","value":"Sandbox String"}}, "datatype":"string"}'
+createEntity 'property' '{"labels":{"en":{"language":"en","value":"Sandbox Url"}}, "datatype":"url"}'
+createEntity 'property' '{"labels":{"en":{"language":"en","value":"Sandbox External Id"}}, "datatype":"external-id"}'
+createEntity 'property' '{"labels":{"en":{"language":"en","value":"Sandbox Item"}}, "datatype":"wikibase-item"}'
+createEntity 'property' '{"labels":{"en":{"language":"en","value":"Property Constraint"}}, "datatype":"wikibase-item"}'
+
 # Q1 generic sandbox item
 createEntity 'item' '{"labels":{"en":{"language":"en","value":"Sandbox Item"}}}'
 
@@ -87,9 +94,6 @@ createEntity 'item' '{"labels":{"en":{"language":"en","value":"Good Article"}}}'
 createEntity 'item' '{"labels":{"en":{"language":"en","value":"sitelink to redirect"}}}'
 createEntity 'item' '{"labels":{"en":{"language":"en","value":"intentional sitelink to redirect"}}}'
 
-# P1
-createEntity 'property' '{"labels":{"en":{"language":"en","value":"Sandbox String"}}, "datatype":"string"}'
-createEntity 'property' '{"labels":{"en":{"language":"en","value":"Sandbox Url"}}, "datatype":"url"}'
-
 # localize sitelinks group
 createPage 'MediaWiki:Wikibase-sitelinks-mylocalwikis' 'Local Wikis'
+createPage 'MediaWiki:Wikibase-statementsection-constraints' 'Constraints'

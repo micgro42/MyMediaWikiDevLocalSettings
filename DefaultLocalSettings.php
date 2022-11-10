@@ -61,6 +61,39 @@ $wgWBRepoSettings['localClientDatabases'] = [
 ];
 
 /**
+ * Configuration to group statements together based on their datatype or other criteria like "propertySet".
+ * For example, putting all of external identifiers in one place.
+ *
+ * See https://doc.wikimedia.org/Wikibase/master/php/docs_topics_options.html#autotoc_md308
+ *
+ * Section configurations other than 'statements' and 'identifiers' require you
+ * to define wikibase-statementsection-* messages for section headings to be rendered correctly.
+ */
+$wgWBRepoSettings['statementSections'] = [
+	'item' => [
+		'statements' => null,
+		'identifiers' => [
+			'type' => 'dataType',
+			'dataTypes' => [ 'external-id' ],
+		],
+	],
+	'property' => [
+		'statements' => null,
+		'constraints' => [
+			'type' => 'propertySet',
+			'propertyIds' => [ 'P5' ],
+		],
+	],
+	'lexeme' => [
+		'statements' => null,
+		'identifiers' => [
+			'type' => 'dataType',
+			'dataTypes' => [ 'external-id' ],
+		],
+	],
+];
+
+/**
  * These settings are used to configure the badges that are available for sitelinks on items.
  */
 $wgWBRepoSettings['badgeItems'] = [
