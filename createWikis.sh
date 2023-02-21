@@ -32,7 +32,7 @@ mw docker mediawiki exec -- php maintenance/run.php MwSql --wiki dewiki_dev --st
 mw docker mediawiki exec -- php maintenance/run.php AddChangeTag --wiki wikidatawiki_dev --tag 'Data Bridge' --reason 'added by createWikis.sh'
 
 # create bot passwords to use with API below
-mw docker mediawiki exec -- php maintenance/run.php CreateBotPassword --wiki wikidatawiki_dev --appid 'createWikis.sh' --grants 'basic,createeditmovepage,editinterface,editpage' 'Admin' '00000000000000000000000000000000'
+mw docker mediawiki exec -- php maintenance/run.php CreateBotPassword --wiki wikidatawiki_dev --appid 'createWikis.sh' --grants 'basic,createeditmovepage,editinterface,editpage' 'Admin' '12345678901234567890123456789012'
 
 ####
 # Create starting entities and pages
@@ -43,7 +43,7 @@ curlCookieOptions="-b /tmp/cookie.txt -c /tmp/cookie.txt"
 
 getCSRFToken () {
   local user='Admin@createWikis.sh'
-  local pass='00000000000000000000000000000000'
+  local pass='12345678901234567890123456789012'
 
   local loginTokenResponse=`curl -j $(echo $curlCookieOptions) "${apiBase}?action=query&meta=tokens&type=login&format=json&formatversion=2"`
 
