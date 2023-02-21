@@ -9,34 +9,34 @@ mw docker memcached create
 mw docker graphite create # available at http://graphite.mwdd.localhost:8080/
 
 # install repo
-mw docker mediawiki install --dbtype=mysql --dbname=default
+mw docker mediawiki install --dbtype=mysql --dbname=wikidatawiki_dev
 # tell the repo about itself
-mw docker mediawiki exec -- php maintenance/addSite.php default mylocalwikis --interwiki-id default --navigation-id default --pagepath 'http://default.mediawiki.mwdd.localhost:8080/w/index.php?title=$1' --filepath 'http://default.mediawiki.mwdd.localhost:8080/w/$1' --language en --server 'http://default.mediawiki.mwdd.localhost:8080'
+mw docker mediawiki exec -- php maintenance/addSite.php --wiki wikidatawiki_dev wikidatawiki_dev mylocalwikis --interwiki-id wikidatawiki_dev --navigation-id wikidatawiki_dev --pagepath 'http://wikidatawiki_dev.mediawiki.mwdd.localhost:8080/w/index.php?title=$1' --filepath 'http://wikidatawiki_dev.mediawiki.mwdd.localhost:8080/w/$1' --language en --server 'http://wikidatawiki_dev.mediawiki.mwdd.localhost:8080'
 
-# install client
-mw docker mediawiki install --dbtype=mysql --dbname=client
-# tell the client about itself
-mw docker mediawiki exec -- php maintenance/addSite.php --wiki client client mylocalwikis --interwiki-id client --navigation-id client --pagepath 'http://client.mediawiki.mwdd.localhost:8080/w/index.php?title=$1' --filepath 'http://client.mediawiki.mwdd.localhost:8080/w/$1' --language de --server 'http://client.mediawiki.mwdd.localhost:8080'
-# tell the repo about the client wiki
-mw docker mediawiki exec -- php maintenance/addSite.php client mylocalwikis --interwiki-id client --navigation-id client --pagepath 'http://client.mediawiki.mwdd.localhost:8080/w/index.php?title=$1' --filepath 'http://client.mediawiki.mwdd.localhost:8080/w/$1' --language de --server 'http://client.mediawiki.mwdd.localhost:8080'
-# tell the client about the repo wiki
-mw docker mediawiki exec -- php maintenance/addSite.php --wiki client default mylocalwikis --interwiki-id default --navigation-id default --pagepath 'http://default.mediawiki.mwdd.localhost:8080/w/index.php?title=$1' --filepath 'http://default.mediawiki.mwdd.localhost:8080/w/$1' --language en --server 'http://default.mediawiki.mwdd.localhost:8080'
+# install dewiki_dev
+mw docker mediawiki install --dbtype=mysql --dbname=dewiki_dev
+# tell the dewiki_dev about itself
+mw docker mediawiki exec -- php maintenance/addSite.php --wiki dewiki_dev dewiki_dev mylocalwikis --interwiki-id dewiki_dev --navigation-id dewiki_dev --pagepath 'http://dewiki_dev.mediawiki.mwdd.localhost:8080/w/index.php?title=$1' --filepath 'http://dewiki_dev.mediawiki.mwdd.localhost:8080/w/$1' --language de --server 'http://dewiki_dev.mediawiki.mwdd.localhost:8080'
+# tell the repo about the dewiki_dev wiki
+mw docker mediawiki exec -- php maintenance/addSite.php --wiki wikidatawiki_dev dewiki_dev mylocalwikis --interwiki-id dewiki_dev --navigation-id dewiki_dev --pagepath 'http://dewiki_dev.mediawiki.mwdd.localhost:8080/w/index.php?title=$1' --filepath 'http://dewiki_dev.mediawiki.mwdd.localhost:8080/w/$1' --language de --server 'http://dewiki_dev.mediawiki.mwdd.localhost:8080'
+# tell the dewiki_dev about the repo wiki
+mw docker mediawiki exec -- php maintenance/addSite.php --wiki dewiki_dev wikidatawiki_dev mylocalwikis --interwiki-id wikidatawiki_dev --navigation-id wikidatawiki_dev --pagepath 'http://wikidatawiki_dev.mediawiki.mwdd.localhost:8080/w/index.php?title=$1' --filepath 'http://wikidatawiki_dev.mediawiki.mwdd.localhost:8080/w/$1' --language en --server 'http://wikidatawiki_dev.mediawiki.mwdd.localhost:8080'
 
 # add interwiki prefixes so that the sitelinks in the sidebar work
-mw docker mediawiki exec -- php maintenance/sql.php --status --query "INSERT INTO interwiki (iw_prefix, iw_url, iw_local, iw_trans, iw_api, iw_wikiid) VALUES ('client', 'http://client.mediawiki.mwdd.localhost:8080/w/index.php?title=\$1', 0, 0, 'http://client.mediawiki.mwdd.localhost:8080/w/api.php', 'client');"
-mw docker mediawiki exec -- php maintenance/sql.php --wiki client --status --query "INSERT INTO interwiki (iw_prefix, iw_url, iw_local, iw_trans, iw_api, iw_wikiid) VALUES ('default', 'http://default.mediawiki.mwdd.localhost:8080/w/index.php?title=\$1', 0, 0, 'http://default.mediawiki.mwdd.localhost:8080/w/api.php', 'default');"
+mw docker mediawiki exec -- php maintenance/sql.php --wiki wikidatawiki_dev --status --query "INSERT INTO interwiki (iw_prefix, iw_url, iw_local, iw_trans, iw_api, iw_wikiid) VALUES ('dewiki_dev', 'http://dewiki_dev.mediawiki.mwdd.localhost:8080/w/index.php?title=\$1', 0, 0, 'http://dewiki_dev.mediawiki.mwdd.localhost:8080/w/api.php', 'dewiki_dev');"
+mw docker mediawiki exec -- php maintenance/sql.php --wiki dewiki_dev --status --query "INSERT INTO interwiki (iw_prefix, iw_url, iw_local, iw_trans, iw_api, iw_wikiid) VALUES ('wikidatawiki_dev', 'http://wikidatawiki_dev.mediawiki.mwdd.localhost:8080/w/index.php?title=\$1', 0, 0, 'http://wikidatawiki_dev.mediawiki.mwdd.localhost:8080/w/api.php', 'wikidatawiki_dev');"
 
 # create "Data Bridge" tag
-mw docker mediawiki exec -- php maintenance/addChangeTag.php --tag 'Data Bridge' --reason 'added by createWikis.sh'
+mw docker mediawiki exec -- php maintenance/addChangeTag.php --wiki wikidatawiki_dev --tag 'Data Bridge' --reason 'added by createWikis.sh'
 
 # create bot passwords to use with API below
-mw docker mediawiki exec -- php maintenance/createBotPassword.php --appid 'createWikis.sh' --grants 'basic,createeditmovepage,editinterface,editpage' 'Admin' '00000000000000000000000000000000'
+mw docker mediawiki exec -- php maintenance/createBotPassword.php --wiki wikidatawiki_dev --appid 'createWikis.sh' --grants 'basic,createeditmovepage,editinterface,editpage' 'Admin' '00000000000000000000000000000000'
 
 ####
 # Create starting entities and pages
 ###
 token=""
-apiBase='http://default.mediawiki.mwdd.localhost:8080/w/api.php'
+apiBase='http://wikidatawiki_dev.mediawiki.mwdd.localhost:8080/w/api.php'
 curlCookieOptions="-b /tmp/cookie.txt -c /tmp/cookie.txt"
 
 getCSRFToken () {
@@ -100,4 +100,4 @@ createPage 'MediaWiki:Wikibase-statementsection-constraints' 'Constraints'
 
 createPage 'Main_Page' '== Test Pages for specific functionalities ==
 * [[Bridge|Wikidata Bridge]]'
-createPage 'Bridge' '{{#statements:P1|from=Q1}}&nbsp;<span data-bridge-edit-flow="single-best-value">[http://default.mediawiki.mwdd.localhost:8080/w/index.php?title=Item:Q1#P1 Edit with Wikidata Bridge]</span>'
+createPage 'Bridge' '{{#statements:P1|from=Q1}}&nbsp;<span data-bridge-edit-flow="single-best-value">[http://wikidatawiki_dev.mediawiki.mwdd.localhost:8080/w/index.php?title=Item:Q1#P1 Edit with Wikidata Bridge]</span>'
