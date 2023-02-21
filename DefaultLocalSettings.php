@@ -298,11 +298,6 @@ if ( $wgDBname === 'wikidatawiki_dev' ) {
 }
 */
 
-//$wgEnableParserCache = false;
-//$wgCachePages = false;
-
-//$wgLocalDatabases = [ 'default', 'client' ];
-
 
 $wgWBRepoSettings['dataRightsText'] = 'Creative Commons CC0 License';
 $wgWBRepoSettings['dataRightsUrl'] = 'https://creativecommons.org/publicdomain/zero/1.0/';
@@ -316,7 +311,7 @@ $wgWBRepoSettings['dataBridgeEnabled'] = true;
 $wgWBClientSettings['dataBridgeHrefRegExp'] = '[/=]((?:Item:)?(Q[1-9][0-9]*)).*#(P[1-9][0-9]*)$';
 $wgWBClientSettings['dataBridgeEditTags'] = [ 'Data Bridge' ];
 $wgEditSubmitButtonLabelPublish = false;
-//$wgWBClientSettings['dataBridgeHrefRegExp'] = 'http://default\.web\.mw\.localhost:8080/mediawiki/index\.php\?title=(?:Item:)?(Q[1-9][0-9]*).*#(P[1-9][0-9]*)';
+
 //$wgWBClientSettings['dataBridgeHrefRegExp'] = 'https://wikidata\.beta\.wmflabs\.org/wiki/(?:Item:)?(Q[1-9][0-9]*).*#(P[1-9][0-9]*)';
 
 if ( $wgDBname === 'wikidatawiki_dev' ) {
