@@ -315,7 +315,7 @@ $wgEditSubmitButtonLabelPublish = false;
 //$wgWBClientSettings['dataBridgeHrefRegExp'] = 'https://wikidata\.beta\.wmflabs\.org/wiki/(?:Item:)?(Q[1-9][0-9]*).*#(P[1-9][0-9]*)';
 
 if ( $wgDBname === 'wikidatawiki_dev' ) {
-	$wgLexemeLanguageCodePropertyId = 'P21';
+	$wgLexemeLanguageCodePropertyId = 'P6';
 	wfLoadExtension( 'WikibaseLexeme' );
 	$wgEntitySchemaShExSimpleUrl = 'https://tools.wmflabs.org/shex-simple/wikidata/packages/shex-webapp/doc/shex-simple.html?data=Endpoint: https://query.wikidata.org/sparql&hideData&manifest=[]&textMapIsSparqlQuery';
 	$wgEntitySchemaSkippedIDs = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 42, 123, 999 ];

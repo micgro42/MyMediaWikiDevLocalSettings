@@ -87,6 +87,7 @@ createEntity 'property' '{"labels":{"en":{"language":"en","value":"Sandbox Url"}
 createEntity 'property' '{"labels":{"en":{"language":"en","value":"Sandbox External Id"}}, "datatype":"external-id"}'
 createEntity 'property' '{"labels":{"en":{"language":"en","value":"Sandbox Item"}}, "datatype":"wikibase-item"}'
 createEntity 'property' '{"labels":{"en":{"language":"en","value":"Property Constraint"}}, "datatype":"wikibase-item"}'
+createEntity 'property' '{"labels":{"en":{"language":"en","value":"Lexeme Language Code"}}, "datatype":"string"}'
 
 # Q1 generic sandbox item
 createEntity 'item' '{"labels":{"en":{"language":"en","value":"Sandbox Item"}}, "claims":[{"mainsnak":{"snaktype":"value","property":"P1","datavalue":{"value":"ExampleString","type":"string"}},"type":"statement","rank":"normal"}]}'
