@@ -4,6 +4,7 @@ set -xe
 # initial creation
 mw docker mediawiki create
 mw docker mysql create
+mw docker mysql-replica create
 mw docker phpmyadmin create
 mw docker memcached create
 # graphite has been disabled for now, see T307366
