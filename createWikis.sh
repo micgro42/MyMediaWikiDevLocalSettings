@@ -6,7 +6,8 @@ mw docker mediawiki create
 mw docker mysql create
 mw docker phpmyadmin create
 mw docker memcached create
-mw docker graphite create # available at http://graphite.mwdd.localhost:8080/
+# graphite has been disabled for now, see T307366
+# mw docker graphite create # available at http://graphite.mwdd.localhost:8080/
 
 # install repo
 mw docker mediawiki install --dbtype=mysql --dbname=wikidatawiki_dev

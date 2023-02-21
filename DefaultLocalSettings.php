@@ -159,8 +159,10 @@ $wgMainCacheType = CACHE_MEMCACHED;
  * Destination of statsd metrics.
  *
  * You can access this server at @link http://graphite.mwdd.localhost:8080/
+ *
+ * TODO: Graphite has been disabled for now, @see T307366
  */
-$wgStatsdServer = 'graphite';
+// $wgStatsdServer = 'graphite'; // graphite is broken in mwcli, taking up GigaBytes of space _fast_
 
 /************
  * Skins
