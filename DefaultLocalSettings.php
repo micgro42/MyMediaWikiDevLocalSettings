@@ -9,7 +9,7 @@ global $wgDBname, $wgScriptPath;
 $wgArticlePath = $wgScriptPath . '/index.php?title=$1';
 
 $repoWikis = [
-	'wikidatawiki_dev',
+	'wikidatawikidev',
 ];
 
 if ( in_array( $wgDBname, $repoWikis, true ) ) {
@@ -24,21 +24,21 @@ if ( in_array( $wgDBname, $repoWikis, true ) ) {
 
 	// see also: https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#client_siteGlobalID
 	$wgWBClientSettings['siteGlobalID'] = 'dewiki_dev';
-	$wgWBClientSettings['repoSiteId'] = 'wikidatawiki_dev';
+	$wgWBClientSettings['repoSiteId'] = 'wikidatawikidev';
 	$wgWBClientSettings['repoSiteName'] = 'Wikidata DEV';
-	$wgWBClientSettings['repoUrl'] = '//wikidatawiki_dev.mediawiki.mwdd.localhost:8080';
+	$wgWBClientSettings['repoUrl'] = '//wikidatawikidev.mediawiki.mwdd.localhost:8080';
 	$wgWBClientSettings['repoScriptPath'] = $wgScriptPath;
 	$wgWBClientSettings['repoArticlePath'] = $wgArticlePath;
 }
 
-// both wikidatawiki_dev and dewiki_dev are clients to the repo on wikidatawiki_dev
+// both wikidatawikidev and dewiki_dev are clients to the repo on wikidatawikidev
 wfLoadExtension( 'WikibaseClient', "$IP/extensions/Wikibase/extension-client.json" );
 
 // https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#common_siteLinkGroups
 $wgWBClientSettings['siteLinkGroups'] = [ 'wikipedia', 'mylocalwikis' ];
 $wgWBRepoSettings['siteLinkGroups'] = [ 'wikipedia', 'mylocalwikis' ];
 // https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#autotoc_md330
-$wgWBClientSettings['repoSiteId'] = 'wikidatawiki_dev';
+$wgWBClientSettings['repoSiteId'] = 'wikidatawikidev';
 
 // https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#common_entitySources
 // https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_entitysources.html
@@ -50,9 +50,9 @@ $entitySources = [
 			'lexeme' => 146,
 //			'mediainfo' => '6/mediainfo',
 		],
-		'repoDatabase' => 'wikidatawiki_dev',
+		'repoDatabase' => 'wikidatawikidev',
 		'baseUri' => 'https://example.com/entity/',
-		'interwikiPrefix' => 'wikidatawiki_dev',
+		'interwikiPrefix' => 'wikidatawikidev',
 		'rdfNodeNamespacePrefix' => '',
 		'rdfPredicateNamespacePrefix' => '',
 	],
@@ -62,12 +62,12 @@ $wgWBClientSettings['entitySources'] = $entitySources;
 
 // https://www.mediawiki.org/wiki/Manual:$wgLocalDatabases
 // FIXME: docs!
-$wgLocalDatabases = [ 'dewiki_dev', 'wikidatawiki_dev' ];
+$wgLocalDatabases = [ 'dewiki_dev', 'wikidatawikidev' ];
 // locally accessibly databases, used for dispatching
 // it seems rather optional unless one looks into dispatching specifically
 // https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#client_localClientDatabases
 $wgWBRepoSettings['localClientDatabases'] = [
-	'wikidatawiki_dev' => 'wikidatawiki_dev',
+	'wikidatawikidev' => 'wikidatawikidev',
 	'dewiki_dev' => 'dewiki_dev'
 ];
 
@@ -184,7 +184,7 @@ $wgMFAutodetectMobileView = true;
  *
  * It is enabled only on a few small wikis and likely to be sunset soon.
  *
- * Go to http://wikidatawiki_dev.mediawiki.mwdd.localhost:8080/w/index.php?title=Special:AboutTopic/Q1
+ * Go to http://wikidatawikidev.mediawiki.mwdd.localhost:8080/w/index.php?title=Special:AboutTopic/Q1
  * to see what this extension does. (assuming Q1 exists and has some statements)
  */
 wfLoadExtension( 'ArticlePlaceholder' );
@@ -291,7 +291,7 @@ $wgDebugLogGroups = [
 require_once "$IP/includes/DevelopmentSettings.php";
 
 /*
-if ( $wgDBname === 'wikidatawiki_dev' ) {
+if ( $wgDBname === 'wikidatawikidev' ) {
 // repo config
 } elseif ( $wgDBname === 'dewiki_dev' ) {
 // dewiki_dev config
@@ -314,7 +314,7 @@ $wgEditSubmitButtonLabelPublish = false;
 
 //$wgWBClientSettings['dataBridgeHrefRegExp'] = 'https://wikidata\.beta\.wmflabs\.org/wiki/(?:Item:)?(Q[1-9][0-9]*).*#(P[1-9][0-9]*)';
 
-if ( $wgDBname === 'wikidatawiki_dev' ) {
+if ( $wgDBname === 'wikidatawikidev' ) {
 	$wgLexemeLanguageCodePropertyId = 'P6';
 	wfLoadExtension( 'WikibaseLexeme' );
 	$wgEntitySchemaShExSimpleUrl = 'https://tools.wmflabs.org/shex-simple/wikidata/packages/shex-webapp/doc/shex-simple.html?data=Endpoint: https://query.wikidata.org/sparql&hideData&manifest=[]&textMapIsSparqlQuery';
@@ -325,7 +325,7 @@ if ( $wgDBname === 'wikidatawiki_dev' ) {
 	wfLoadExtension( 'WikibaseQualityConstraints' );
 }
 
-if ( $wgDBname === 'wikidatawiki_dev' ) {
+if ( $wgDBname === 'wikidatawikidev' ) {
 	// https://www.mediawiki.org/wiki/Manual:Hooks/SkinBuildSidebar
 	// https://www.mediawiki.org/wiki/Wikibase/Suite#Optional_sidebar
 	$wgHooks['SkinBuildSidebar'][] = function( $skin, &$sidebar ) {
