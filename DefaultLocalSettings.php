@@ -8,6 +8,7 @@ global $wgDBname, $wgScriptPath;
 
 $wgArticlePath = $wgScriptPath . '/index.php?title=$1';
 
+// add a ci-wikidata wiki here where we load Wikibase.ci.php?
 $repoWikis = [
 	'wikidatawikidev',
 ];
@@ -15,7 +16,24 @@ $repoWikis = [
 if ( in_array( $wgDBname, $repoWikis, true ) ) {
 	// repo-only config
 	wfLoadExtension( 'WikibaseRepository', "$IP/extensions/Wikibase/extension-repo.json" );
-	require_once "$IP/extensions/Wikibase/repo/ExampleSettings.php";
+
+	// These are the values actually defined on production Wikidata
+	$wgExtraNamespaces = [
+		120 => 'Property',
+		121 => 'Property_talk',
+		122 => 'Query',
+		123 => 'Query_talk',
+	];
+	$wgNamespaceAliases = [
+		'Item' => NS_MAIN,
+		'Item_talk' => NS_TALK,
+		'WD' => NS_PROJECT,
+		'WT' => NS_PROJECT_TALK,
+		'P' => 120,
+		'L' => 146,
+		'E' => 640,
+	];
+
 	$wgFavicon = 'favicon-repo.ico';
 } elseif ( $wgDBname === 'dewiki_dev' ) {
 	// client-only config
@@ -45,8 +63,8 @@ $wgWBClientSettings['repoSiteId'] = 'wikidatawikidev';
 $entitySources = [
 	'local' => [
 		'entityNamespaces' => [
-			'item' => 120,
-			'property' => 122,
+			'item' => 0,
+			'property' => 120,
 			'lexeme' => 146,
 //			'mediainfo' => '6/mediainfo',
 		],
