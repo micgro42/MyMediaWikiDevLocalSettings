@@ -49,12 +49,20 @@ if ( in_array( $wgDBname, $repoWikis, true ) ) {
 	$wgWBClientSettings['repoArticlePath'] = $wgArticlePath;
 }
 
+// https://www.mediawiki.org/wiki/Manual:CORS
+// https://www.mediawiki.org/wiki/Manual:$wgCrossSiteAJAXdomains
+$wgCrossSiteAJAXdomains = [
+	'*.mediawiki.mwdd.localhost:8080'
+];
+
 // both wikidatawikidev and dewiki_dev are clients to the repo on wikidatawikidev
 wfLoadExtension( 'WikibaseClient', "$IP/extensions/Wikibase/extension-client.json" );
 
 // https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#common_siteLinkGroups
 $wgWBClientSettings['siteLinkGroups'] = [ 'wikipedia', 'mylocalwikis' ];
 $wgWBRepoSettings['siteLinkGroups'] = [ 'wikipedia', 'mylocalwikis' ];
+$wgWBClientSettings['maxSerializedEntitySize'] = 0;
+$wgWBRepoSettings['maxSerializedEntitySize'] = 0;
 // https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#autotoc_md330
 $wgWBClientSettings['repoSiteId'] = 'wikidatawikidev';
 
@@ -121,6 +129,9 @@ $wgWBRepoSettings['statementSections'] = [
 		],
 	],
 ];
+
+$wgWBRepoSettings['sendEchoNotification'] = true;
+$wgWBClientSettings['sendEchoNotification'] = true;
 
 /**
  * These settings are used to configure the badges that are available for sitelinks on items.
@@ -298,6 +309,9 @@ $wgDebugLogGroups = [
 	'GlobalTitleFail' => '/var/log/mediawiki/globalTitleFail.log',
 	'Mime' => '/var/log/mediawiki/mime.log',
 	'StashEdit' => '/var/log/mediawiki/stashEdit.log',
+	'memcached' => '/var/log/mediawiki/memcached.log',
+	'rdbms' => '/var/log/mediawiki/rdbms.log',
+	'localisation' => '/var/log/mediawiki/localisation.log',
 
 	// Extra log groups from your extension
 	'Wikibase' => [
@@ -331,16 +345,21 @@ $wgWBClientSettings['dataBridgeEditTags'] = [ 'Data Bridge' ];
 $wgEditSubmitButtonLabelPublish = false;
 
 //$wgWBClientSettings['dataBridgeHrefRegExp'] = 'https://wikidata\.beta\.wmflabs\.org/wiki/(?:Item:)?(Q[1-9][0-9]*).*#(P[1-9][0-9]*)';
-
+$wgTmpDirectory = '/tmp';
 if ( $wgDBname === 'wikidatawikidev' ) {
 	$wgLexemeLanguageCodePropertyId = 'P6';
 	wfLoadExtension( 'WikibaseLexeme' );
-	$wgEntitySchemaShExSimpleUrl = 'https://tools.wmflabs.org/shex-simple/wikidata/packages/shex-webapp/doc/shex-simple.html?data=Endpoint: https://query.wikidata.org/sparql&hideData&manifest=[]&textMapIsSparqlQuery';
-	$wgEntitySchemaSkippedIDs = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 42, 123, 999 ];
+	$wgEntitySchemaShExSimpleUrl = 'https://tools.wmflabs.org/shex-simple/wikidata/packages/shex-webapp/doc/shex-simple.html?data=Endpoint:%20https://query.wikidata.org/sparql&hideData&manifest=[]&textMapIsSparqlQuery';
 	wfLoadExtension( 'EntitySchema' );
 
 	$wgWBQualityConstraintsSuggestionsBetaFeature = true;
 	wfLoadExtension( 'WikibaseQualityConstraints' );
+	if ( file_exists( __DIR__ . '/WDQCPropertySettings.php' ) ) {
+		require_once __DIR__ . '/WDQCPropertySettings.php';
+	}
+
+	// FIXME: describe!
+	wfLoadExtension( 'Wikidata.org' );
 }
 
 if ( $wgDBname === 'wikidatawikidev' ) {

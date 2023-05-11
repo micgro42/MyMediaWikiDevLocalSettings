@@ -4,7 +4,7 @@ set -xe
 # initial creation
 mw docker mediawiki create
 mw docker mysql create
-mw docker mysql-replica create
+# mw docker mysql-replica create # replica is creating all the problems
 mw docker phpmyadmin create
 mw docker memcached create
 # graphite has been disabled for now, see T307366
@@ -83,11 +83,18 @@ createEntity () {
 
 # P1
 createEntity 'property' '{"labels":{"en":{"language":"en","value":"Sandbox String"}}, "datatype":"string"}'
+# P2
 createEntity 'property' '{"labels":{"en":{"language":"en","value":"Sandbox Url"}}, "datatype":"url"}'
+# P3
 createEntity 'property' '{"labels":{"en":{"language":"en","value":"Sandbox External Id"}}, "datatype":"external-id"}'
+# P4
 createEntity 'property' '{"labels":{"en":{"language":"en","value":"Sandbox Item"}}, "datatype":"wikibase-item"}'
+# P5
 createEntity 'property' '{"labels":{"en":{"language":"en","value":"Property Constraint"}}, "datatype":"wikibase-item"}'
+# P6
 createEntity 'property' '{"labels":{"en":{"language":"en","value":"Lexeme Language Code"}}, "datatype":"string"}'
+# P7
+createEntity 'property' '{"labels":{"en":{"language":"en","value":"Sandbox Entity Schema"}}, "datatype":"entity-schema"}'
 
 # Q1 generic sandbox item
 createEntity 'item' '{"labels":{"en":{"language":"en","value":"Sandbox Item"}}, "claims":[{"mainsnak":{"snaktype":"value","property":"P1","datavalue":{"value":"ExampleString","type":"string"}},"type":"statement","rank":"normal"}]}'
@@ -104,3 +111,11 @@ createPage 'MediaWiki:Wikibase-statementsection-constraints' 'Constraints'
 createPage 'Main_Page' '== Test Pages for specific functionalities ==
 * [[Bridge|Wikidata Bridge]]'
 createPage 'Bridge' '{{#statements:P1|from=Q1}}&nbsp;<span data-bridge-edit-flow="single-best-value">[http://wikidatawikidev.mediawiki.mwdd.localhost:8080/w/index.php?title=Item:Q1#P1 Edit with Wikidata Bridge]</span>'
+createPage 'MediaWiki:Common.js' "function logTrackerToConsole(topic, data) {\n  console.log( 'mw.track: %O %c(see MediaWiki:Common.js)', { 'topic': topic, 'data': data }, 'color: grey;' );\n}\nmw.trackSubscribe('', logTrackerToConsole);"
+
+echo "<?php\n" > WDQCPropertySettings.php
+echo "\n\n Importing Constraint Entities. This might take a while... \n\n"
+mw docker mediawiki exec -- php maintenance/run.php WikibaseQualityConstraints:ImportConstraintEntities.php --wiki wikidatawikidev | tee -a WDQCPropertySettings.php
+
+mw docker mediawiki exec -- php maintenance/run.php RunJobs --wiki wikidatawikidev
+mw docker mediawiki exec -- php maintenance/run.php RunJobs --wiki dewiki_dev
