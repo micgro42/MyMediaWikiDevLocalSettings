@@ -107,10 +107,34 @@ createEntity 'item' '{"labels":{"en":{"language":"en","value":"intentional sitel
 # localize sitelinks group
 createPage 'MediaWiki:Wikibase-sitelinks-mylocalwikis' 'Local Wikis'
 createPage 'MediaWiki:Wikibase-statementsection-constraints' 'Constraints'
+createPage 'MediaWiki:Mainpage' 'Wikidata:Main Page'
 
-createPage 'Main_Page' '== Test Pages for specific functionalities ==
-* [[Bridge|Wikidata Bridge]]'
-createPage 'Bridge' '{{#statements:P1|from=Q1}}&nbsp;<span data-bridge-edit-flow="single-best-value">[http://wikidatawikidev.mediawiki.mwdd.localhost:8080/w/index.php?title=Item:Q1#P1 Edit with Wikidata Bridge]</span>'
+createPage 'Wikidata:Main Page' '== Test Pages for specific functionalities ==
+* [[Wikidata:Bridge|Wikidata Bridge]]
+* [[Wikidata:Lua|Lua]]'
+createPage 'Module:Sandbox' "p = {}
+local entityId = 'Q1'
+p.label = function(frame)
+  local entity = mw.wikibase.getEntity( entityId )
+  return entity.labels.en.value
+--  return mw.wikibase.getLabel( entityId )
+end
+
+p.isValidEntityId = function(frame)
+  return mw.wikibase.isValidEntityId( entityId )
+end
+
+p.getEntity = function(frame)
+  return mw.wikibase.getEntity( entityId )
+end
+
+return p"
+createPage 'Wikidata:Lua' 'Parser function actually: {{#statements:P1|from=Q1}}
+
+<nowiki>{{#invoke:Sandbox|label}}</nowiki>{{#invoke:Sandbox|label}}
+<nowiki>{{#invoke:Sandbox|isValidEntityId}}</nowiki>{{#invoke:Sandbox|isValidEntityId}}
+<nowiki>{{#invoke:Sandbox|getEntity}}</nowiki>{{#invoke:Sandbox|getEntity}}'
+createPage 'Wikidata:Bridge' '{{#statements:P1|from=Q1}}&nbsp;<span data-bridge-edit-flow="single-best-value">[http://wikidatawikidev.mediawiki.mwdd.localhost:8080/w/index.php?title=Item:Q1#P1 Edit with Wikidata Bridge]</span>'
 createPage 'MediaWiki:Common.js' "function logTrackerToConsole(topic, data) {\n  console.log( 'mw.track: %O %c(see MediaWiki:Common.js)', { 'topic': topic, 'data': data }, 'color: grey;' );\n}\nmw.trackSubscribe('', logTrackerToConsole);"
 
 echo "<?php\n" > WDQCPropertySettings.php
