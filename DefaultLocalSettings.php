@@ -34,6 +34,9 @@ if ( in_array( $wgDBname, $repoWikis, true ) ) {
 		'E' => 640,
 	];
 
+	// FIXME: this is devwikidatawiki specific config!
+	$wgMetaNamespace = 'Wikidata';
+
 	$wgFavicon = 'favicon-repo.ico';
 } elseif ( $wgDBname === 'dewiki_dev' ) {
 	// client-only config
@@ -66,6 +69,10 @@ $wgWBRepoSettings['maxSerializedEntitySize'] = 0;
 // https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#autotoc_md330
 $wgWBClientSettings['repoSiteId'] = 'wikidatawikidev';
 
+if ( defined( 'MW_PHPUNIT_TEST' ) ) {
+	require_once './extensions/Wikibase/repo/config/Wikibase.ci.php';
+	require_once './extensions/Wikibase/client/config/WikibaseClient.ci.php';
+}
 // https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#common_entitySources
 // https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_entitysources.html
 $entitySources = [
@@ -77,14 +84,17 @@ $entitySources = [
 //			'mediainfo' => '6/mediainfo',
 		],
 		'repoDatabase' => 'wikidatawikidev',
-		'baseUri' => 'https://example.com/entity/',
+		'baseUri' => 'http://wikidatawikidev.mediawiki.mwdd.localhost:8080/w/index.php?title=Special:EntityData',
 		'interwikiPrefix' => 'wikidatawikidev',
-		'rdfNodeNamespacePrefix' => '',
-		'rdfPredicateNamespacePrefix' => '',
+		'rdfNodeNamespacePrefix' => 'wddev',
+		'rdfPredicateNamespacePrefix' => 'wddev',
 	],
 ];
 $wgWBRepoSettings['entitySources'] = $entitySources;
-$wgWBClientSettings['entitySources'] = $entitySources;
+if ( $wgDBname === 'dewiki_dev' ) {
+	// If this is configured for repo, then it breaks tests that overwrite this setting
+	$wgWBClientSettings['entitySources'] = $entitySources;
+}
 
 // https://www.mediawiki.org/wiki/Manual:$wgLocalDatabases
 // FIXME: docs!
