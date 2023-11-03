@@ -272,7 +272,12 @@ wfLoadExtension( 'UniversalLanguageSelector' );
 //wfLoadExtension( 'Gadgets' );
 //wfLoadExtension( 'Interwiki' );
 //wfLoadExtension( 'InterwikiSorting' );
-//wfLoadExtension( 'ParserFunctions' );
+
+/*
+ * Make parser functions like `#ifeq:` work
+ * https://www.mediawiki.org/wiki/Help:Extension:ParserFunctions
+ */
+wfLoadExtension( 'ParserFunctions' );
 
 //wfLoadExtension( 'Cite' );
 //wfLoadExtension( 'SpamBlacklist' );
