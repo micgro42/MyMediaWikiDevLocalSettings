@@ -348,6 +348,11 @@ if ( $wgDBname === 'wikidatawikidev' ) {
 }
 */
 
+/*
+ * Allows use of ?uselang=x-xss to check for XSS vulnerabilities in i18n messages
+ * https://www.mediawiki.org/wiki/Manual:$wgUseXssLanguage
+ */
+$wgUseXssLanguage = true;
 
 $wgWBRepoSettings['dataRightsText'] = 'Creative Commons CC0 License';
 $wgWBRepoSettings['dataRightsUrl'] = 'https://creativecommons.org/publicdomain/zero/1.0/';
