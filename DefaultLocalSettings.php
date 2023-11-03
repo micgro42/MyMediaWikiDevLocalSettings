@@ -7,6 +7,14 @@
 global $wgDBname, $wgScriptPath;
 
 $wgArticlePath = $wgScriptPath . '/index.php?title=$1';
+/*
+ * Disable short-url rewrites.
+ * https://www.mediawiki.org/wiki/Manual:Short_URL
+ * https://www.mediawiki.org/wiki/Manual:$wgUsePathInfo
+ *
+ * TODO: invest the time to set this up correctly, like on production
+ */
+$wgUsePathInfo = false;
 
 // add a ci-wikidata wiki here where we load Wikibase.ci.php?
 $repoWikis = [
