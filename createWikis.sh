@@ -15,18 +15,18 @@ mw docker mediawiki install --dbtype=mysql --dbname=wikidatawikidev
 # tell the repo about itself
 mw docker mediawiki exec -- php maintenance/run.php AddSite --wiki wikidatawikidev wikidatawikidev mylocalwikis --interwiki-id wikidatawikidev --navigation-id wikidatawikidev --pagepath 'http://wikidatawikidev.mediawiki.mwdd.localhost:8080/w/index.php?title=$1' --filepath 'http://wikidatawikidev.mediawiki.mwdd.localhost:8080/w/$1' --language en --server 'http://wikidatawikidev.mediawiki.mwdd.localhost:8080'
 
-# install dewiki_dev
-mw docker mediawiki install --dbtype=mysql --dbname=dewiki_dev
-# tell the dewiki_dev about itself
-mw docker mediawiki exec -- php maintenance/run.php AddSite --wiki dewiki_dev dewiki_dev mylocalwikis --interwiki-id dewiki_dev --navigation-id dewiki_dev --pagepath 'http://dewiki_dev.mediawiki.mwdd.localhost:8080/w/index.php?title=$1' --filepath 'http://dewiki_dev.mediawiki.mwdd.localhost:8080/w/$1' --language de --server 'http://dewiki_dev.mediawiki.mwdd.localhost:8080'
-# tell the repo about the dewiki_dev wiki
-mw docker mediawiki exec -- php maintenance/run.php AddSite --wiki wikidatawikidev dewiki_dev mylocalwikis --interwiki-id dewiki_dev --navigation-id dewiki_dev --pagepath 'http://dewiki_dev.mediawiki.mwdd.localhost:8080/w/index.php?title=$1' --filepath 'http://dewiki_dev.mediawiki.mwdd.localhost:8080/w/$1' --language de --server 'http://dewiki_dev.mediawiki.mwdd.localhost:8080'
-# tell the dewiki_dev about the repo wiki
-mw docker mediawiki exec -- php maintenance/run.php AddSite --wiki dewiki_dev wikidatawikidev mylocalwikis --interwiki-id wikidatawikidev --navigation-id wikidatawikidev --pagepath 'http://wikidatawikidev.mediawiki.mwdd.localhost:8080/w/index.php?title=$1' --filepath 'http://wikidatawikidev.mediawiki.mwdd.localhost:8080/w/$1' --language en --server 'http://wikidatawikidev.mediawiki.mwdd.localhost:8080'
+# install dewikidev
+mw docker mediawiki install --dbtype=mysql --dbname=dewikidev
+# tell the dewikidev about itself
+mw docker mediawiki exec -- php maintenance/run.php AddSite --wiki dewikidev dewikidev mylocalwikis --interwiki-id dewikidev --navigation-id dewikidev --pagepath 'http://dewikidev.mediawiki.mwdd.localhost:8080/w/index.php?title=$1' --filepath 'http://dewikidev.mediawiki.mwdd.localhost:8080/w/$1' --language de --server 'http://dewikidev.mediawiki.mwdd.localhost:8080'
+# tell the repo about the dewikidev wiki
+mw docker mediawiki exec -- php maintenance/run.php AddSite --wiki wikidatawikidev dewikidev mylocalwikis --interwiki-id dewikidev --navigation-id dewikidev --pagepath 'http://dewikidev.mediawiki.mwdd.localhost:8080/w/index.php?title=$1' --filepath 'http://dewikidev.mediawiki.mwdd.localhost:8080/w/$1' --language de --server 'http://dewikidev.mediawiki.mwdd.localhost:8080'
+# tell the dewikidev about the repo wiki
+mw docker mediawiki exec -- php maintenance/run.php AddSite --wiki dewikidev wikidatawikidev mylocalwikis --interwiki-id wikidatawikidev --navigation-id wikidatawikidev --pagepath 'http://wikidatawikidev.mediawiki.mwdd.localhost:8080/w/index.php?title=$1' --filepath 'http://wikidatawikidev.mediawiki.mwdd.localhost:8080/w/$1' --language en --server 'http://wikidatawikidev.mediawiki.mwdd.localhost:8080'
 
 # add interwiki prefixes so that the sitelinks in the sidebar work
-mw docker mediawiki exec -- php maintenance/run.php MwSql --wiki wikidatawikidev --status --query "INSERT INTO interwiki (iw_prefix, iw_url, iw_local, iw_trans, iw_api, iw_wikiid) VALUES ('dewiki_dev', 'http://dewiki_dev.mediawiki.mwdd.localhost:8080/w/index.php?title=\$1', 0, 0, 'http://dewiki_dev.mediawiki.mwdd.localhost:8080/w/api.php', 'dewiki_dev');"
-mw docker mediawiki exec -- php maintenance/run.php MwSql --wiki dewiki_dev --status --query "INSERT INTO interwiki (iw_prefix, iw_url, iw_local, iw_trans, iw_api, iw_wikiid) VALUES ('wikidatawikidev', 'http://wikidatawikidev.mediawiki.mwdd.localhost:8080/w/index.php?title=\$1', 0, 0, 'http://wikidatawikidev.mediawiki.mwdd.localhost:8080/w/api.php', 'wikidatawikidev');"
+mw docker mediawiki exec -- php maintenance/run.php MwSql --wiki wikidatawikidev --status --query "INSERT INTO interwiki (iw_prefix, iw_url, iw_local, iw_trans, iw_api, iw_wikiid) VALUES ('dewikidev', 'http://dewikidev.mediawiki.mwdd.localhost:8080/w/index.php?title=\$1', 0, 0, 'http://dewikidev.mediawiki.mwdd.localhost:8080/w/api.php', 'dewikidev');"
+mw docker mediawiki exec -- php maintenance/run.php MwSql --wiki dewikidev --status --query "INSERT INTO interwiki (iw_prefix, iw_url, iw_local, iw_trans, iw_api, iw_wikiid) VALUES ('wikidatawikidev', 'http://wikidatawikidev.mediawiki.mwdd.localhost:8080/w/index.php?title=\$1', 0, 0, 'http://wikidatawikidev.mediawiki.mwdd.localhost:8080/w/api.php', 'wikidatawikidev');"
 
 # create "Data Bridge" tag
 mw docker mediawiki exec -- php maintenance/run.php AddChangeTag --wiki wikidatawikidev --tag 'Data Bridge' --reason 'added by createWikis.sh'
@@ -139,7 +139,7 @@ createPage 'MediaWiki:Common.js' "function logTrackerToConsole(topic, data) {\n 
 
 echo "<?php\n" > WDQCPropertySettings.php
 echo "\n\n Importing Constraint Entities. This might take a while... \n\n"
-mw docker mediawiki exec -- php maintenance/run.php WikibaseQualityConstraints:ImportConstraintEntities.php --wiki wikidatawikidev | tee -a WDQCPropertySettings.php
+# mw docker mediawiki exec -- php maintenance/run.php WikibaseQualityConstraints:ImportConstraintEntities.php --wiki wikidatawikidev | tee -a WDQCPropertySettings.php
 
 mw docker mediawiki exec -- php maintenance/run.php RunJobs --wiki wikidatawikidev
-mw docker mediawiki exec -- php maintenance/run.php RunJobs --wiki dewiki_dev
+mw docker mediawiki exec -- php maintenance/run.php RunJobs --wiki dewikidev

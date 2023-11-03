@@ -38,13 +38,13 @@ if ( in_array( $wgDBname, $repoWikis, true ) ) {
 	$wgMetaNamespace = 'Wikidata';
 
 	$wgFavicon = 'favicon-repo.ico';
-} elseif ( $wgDBname === 'dewiki_dev' ) {
+} elseif ( $wgDBname === 'dewikidev' ) {
 	// client-only config
 	$wgLanguageCode = 'de';
 	$wgFavicon = 'favicon-client.ico';
 
 	// see also: https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#client_siteGlobalID
-	$wgWBClientSettings['siteGlobalID'] = 'dewiki_dev';
+	$wgWBClientSettings['siteGlobalID'] = 'dewikidev';
 	$wgWBClientSettings['repoSiteId'] = 'wikidatawikidev';
 	$wgWBClientSettings['repoSiteName'] = 'Wikidata DEV';
 	$wgWBClientSettings['repoUrl'] = '//wikidatawikidev.mediawiki.mwdd.localhost:8080';
@@ -58,7 +58,7 @@ $wgCrossSiteAJAXdomains = [
 	'*.mediawiki.mwdd.localhost:8080'
 ];
 
-// both wikidatawikidev and dewiki_dev are clients to the repo on wikidatawikidev
+// both wikidatawikidev and dewikidev are clients to the repo on wikidatawikidev
 wfLoadExtension( 'WikibaseClient', "$IP/extensions/Wikibase/extension-client.json" );
 
 // https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#common_siteLinkGroups
@@ -91,20 +91,20 @@ $entitySources = [
 	],
 ];
 $wgWBRepoSettings['entitySources'] = $entitySources;
-if ( $wgDBname === 'dewiki_dev' ) {
+if ( $wgDBname === 'dewikidev' ) {
 	// If this is configured for repo, then it breaks tests that overwrite this setting
 	$wgWBClientSettings['entitySources'] = $entitySources;
 }
 
 // https://www.mediawiki.org/wiki/Manual:$wgLocalDatabases
 // FIXME: docs!
-$wgLocalDatabases = [ 'dewiki_dev', 'wikidatawikidev' ];
+$wgLocalDatabases = [ 'dewikidev', 'wikidatawikidev' ];
 // locally accessibly databases, used for dispatching
 // it seems rather optional unless one looks into dispatching specifically
 // https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#client_localClientDatabases
 $wgWBRepoSettings['localClientDatabases'] = [
 	'wikidatawikidev' => 'wikidatawikidev',
-	'dewiki_dev' => 'dewiki_dev'
+	'dewikidev' => 'dewikidev'
 ];
 
 /**
@@ -335,8 +335,8 @@ require_once "$IP/includes/DevelopmentSettings.php";
 /*
 if ( $wgDBname === 'wikidatawikidev' ) {
 // repo config
-} elseif ( $wgDBname === 'dewiki_dev' ) {
-// dewiki_dev config
+} elseif ( $wgDBname === 'dewikidev' ) {
+// dewikidev config
 }
 */
 
