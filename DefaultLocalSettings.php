@@ -388,6 +388,18 @@ if ( $wgDBname === 'wikidatawikidev' ) {
 
 	// FIXME: describe!
 	wfLoadExtension( 'Wikidata.org' );
+
+	/*
+	 * Wikibase REST Api
+	 *
+	 * run in Wikibase root dir `API_URL='http://wikidatawikidev.mediawiki.mwdd.localhost:8080/w/rest.php' npm run doc:rest-api`
+	 * then open http://wikidatawikidev.mediawiki.mwdd.localhost:8080/w/extensions/Wikibase/docs/rest-api/index.html
+	 *
+	 * Edit \Wikibase\Repo\RestApi\RouteHandlers\Middleware\UnexpectedErrorHandlerMiddleware to see internal errors
+	 */
+	$wgEnableRestAPI = true;
+	$wgRestAPIAdditionalRouteFiles[] = 'extensions/Wikibase/repo/rest-api/routes.json';
+	$wgRestAPIAdditionalRouteFiles[] = 'extensions/Wikibase/repo/rest-api/routes.dev.json';
 }
 
 if ( $wgDBname === 'wikidatawikidev' ) {
