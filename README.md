@@ -17,8 +17,6 @@ The files/scripts here are intended to work together with the [mwcli](https://ww
 ### Required extensions and skins
 
 These default settings assume some extensions to be present.
-The best way to get them is to filter for them in the [list of all repositories](https://gerrit.wikimedia.org/r/admin/repos),
-and then clone them (with the long command including the `commit-msg` hook) directly into `mediawiki/extensions/`.
 
 * Wikibase
 * WikibaseLexeme
@@ -28,10 +26,30 @@ and then clone them (with the long command including the `commit-msg` hook) dire
 * ArticlePlaceholder
 * MobileFrontend
 * WikimediaBadges
+* UniversalLanguageSettings
+* ParserFunctions
+* Wikidata.org
 
 Further, two skins are needed:
 * Vector, which should have been installed as part of the mwcli first-time setup above
 * MinervaNeue, which can be cloned with the process described above, but this time into the directory `mediawiki/skins/`.
+
+You can fetch the code automatically with the `mw get-code` command:
+
+```shell
+# Fetch extensions code
+mw docker mediawiki get-code --extension EntitySchema
+mw docker mediawiki get-code --extension Scribunto
+mw docker mediawiki get-code --extension ArticlePlaceholder
+mw docker mediawiki get-code --extension MobileFrontend
+mw docker mediawiki get-code --extension WikimediaBadges
+mw docker mediawiki get-code --extension UniversalLanguageSettings
+mw docker mediawiki get-code --extension ParserFunctions
+mw docker mediawiki get-code --extension Wikidata.org
+
+# Fetch skins code
+mw docker mediawiki get-code --skin MinervaNeue
+```
 
 ### Link the files
 
@@ -73,3 +91,8 @@ You can just execute that file to create two linked wikis and a few initial enti
 ```shell
 ./createWikis.sh
 ```
+
+If the script runs successfully, you will now have two wikis running locally on your machine:
+
+[http://dewikidev.mediawiki.mwdd.localhost:8080/w/index.php](http://dewikidev.mediawiki.mwdd.localhost:8080/w/index.php)
+[http://wikidatawikidev.mediawiki.mwdd.localhost:8080/w/index.php](http://wikidatawikidev.mediawiki.mwdd.localhost:8080/w/index.php)
