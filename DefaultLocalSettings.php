@@ -78,8 +78,8 @@ $wgWBRepoSettings['maxSerializedEntitySize'] = 0;
 $wgWBClientSettings['repoSiteId'] = 'wikidatawikidev';
 
 if ( defined( 'MW_PHPUNIT_TEST' ) ) {
-	require_once './extensions/Wikibase/repo/config/Wikibase.ci.php';
-	require_once './extensions/Wikibase/client/config/WikibaseClient.ci.php';
+	require_once "$IP/extensions/Wikibase/repo/config/Wikibase.ci.php";
+	require_once "$IP/extensions/Wikibase/client/config/WikibaseClient.ci.php";
 }
 // https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#common_entitySources
 // https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_entitysources.html
