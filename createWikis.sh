@@ -159,6 +159,8 @@ echo "<?php\n" > WDQCPropertySettings.php
 echo "\n\n Importing Constraint Entities. This might take a while... \n\n"
 # mw docker mediawiki exec -- php maintenance/run.php WikibaseQualityConstraints:ImportConstraintEntities.php --wiki wikidatawikidev | tee -a WDQCPropertySettings.php
 
-mw docker mediawiki exec -- php maintenance/run.php RunJobs --wiki wikidatawikidev
-mw docker mediawiki exec -- php maintenance/run.php RunJobs --wiki dewikidev
-mw docker mediawiki exec -- php maintenance/run.php RunJobs --wiki eowikidev
+# TODO: figure out where to find the logs for these jobs
+mw docker mediawiki jobrunner create
+mw docker mediawiki jobrunner add-site eowikidev
+mw docker mediawiki jobrunner add-site dewikidev
+mw docker mediawiki jobrunner add-site wikidatawikidev
