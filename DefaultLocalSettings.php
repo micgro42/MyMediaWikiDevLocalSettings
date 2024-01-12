@@ -20,6 +20,10 @@ $wgUsePathInfo = false;
 $repoWikis = [
 	'wikidatawikidev',
 ];
+$clientWikis = [
+	'dewikidev',
+	'eowikidev',
+];
 
 if ( in_array( $wgDBname, $repoWikis, true ) ) {
 	// repo-only config
@@ -53,6 +57,18 @@ if ( in_array( $wgDBname, $repoWikis, true ) ) {
 
 	// see also: https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#client_siteGlobalID
 	$wgWBClientSettings['siteGlobalID'] = 'dewikidev';
+	$wgWBClientSettings['repoSiteId'] = 'wikidatawikidev';
+	$wgWBClientSettings['repoSiteName'] = 'Wikidata DEV';
+	$wgWBClientSettings['repoUrl'] = '//wikidatawikidev.mediawiki.mwdd.localhost:8080';
+	$wgWBClientSettings['repoScriptPath'] = $wgScriptPath;
+	$wgWBClientSettings['repoArticlePath'] = $wgArticlePath;
+} elseif ( $wgDBname === 'eowikidev' ) {
+	// client-only config
+	$wgLanguageCode = 'eo';
+	$wgFavicon = 'favicon-client.ico';
+
+	// see also: https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#client_siteGlobalID
+	$wgWBClientSettings['siteGlobalID'] = 'eowikidev';
 	$wgWBClientSettings['repoSiteId'] = 'wikidatawikidev';
 	$wgWBClientSettings['repoSiteName'] = 'Wikidata DEV';
 	$wgWBClientSettings['repoUrl'] = '//wikidatawikidev.mediawiki.mwdd.localhost:8080';
@@ -99,20 +115,21 @@ $entitySources = [
 	],
 ];
 $wgWBRepoSettings['entitySources'] = $entitySources;
-if ( $wgDBname === 'dewikidev' ) {
+if ( in_array( $wgDBname, $clientWikis) ) {
 	// If this is configured for repo, then it breaks tests that overwrite this setting
 	$wgWBClientSettings['entitySources'] = $entitySources;
 }
 
 // https://www.mediawiki.org/wiki/Manual:$wgLocalDatabases
 // FIXME: docs!
-$wgLocalDatabases = [ 'dewikidev', 'wikidatawikidev' ];
+$wgLocalDatabases = [ 'eowikidev', 'dewikidev', 'wikidatawikidev' ];
 // locally accessibly databases, used for dispatching
 // it seems rather optional unless one looks into dispatching specifically
 // https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#client_localClientDatabases
 $wgWBRepoSettings['localClientDatabases'] = [
 	'wikidatawikidev' => 'wikidatawikidev',
-	'dewikidev' => 'dewikidev'
+	'dewikidev' => 'dewikidev',
+	'eowikidev' => 'eowikidev',
 ];
 
 /**
